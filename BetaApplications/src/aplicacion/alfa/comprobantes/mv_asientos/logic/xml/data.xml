@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+	<query id="existe" text="select * from mv_asientos where periodo = ? and mes_operativo =? and [numero asiento] = ?"></query>
+	<insert id="insertar" text="insert into mv_asientos (
+cuenta,secuencia,mes_operativo,[numero asiento],
+fecha,detalle,tc,sucursal,numero,letra,
+[debe-haber],importe,moneda,cotizacion,id_cotiz,
+periodo,cabimporte,vencimiento,tipo_reg,
+fechahora_grabacion,cabcuenta,cabnombre,cabcuit,
+cabcondiva,liva_tipo,liva_impnetograv,liva_impnetongrav,
+liva_exento,liva_aliciva,liva_impiva,
+liva_aliciva2,liva_impiva2,
+liva_aliciva3,liva_impiva3,
+liva_ret_perc,
+liva_ret_ibtos,liva_ret_ganancias,
+liva_total,
+fechasubdiario,
+nrocai,
+Fhvtocai,
+idcajas,
+unegocio,
+idmotivo) values (
+'?',
+?,
+?,
+?,
+'?',
+'?',
+'?',
+'?',
+'?',
+'?',
+'?',
+?,
+'?',
+?,
+'?',
+?,
+?,
+'?',
+'?',
+'?',
+'?',
+'?',
+'?',
+'?',
+'?',
+?,
+?,
+?,
+?,
+?,
+?,
+?,
+?,
+?,
+?,
+?,
+?,
+?,
+'?',
+'?',
+'?',
+'?',
+'?',
+'?')"></insert>
+	<delete id="eliminar" text="delete from mv_asientos where periodo =? and mes_operativo= ? and [numero asiento] =?"></delete>
+	<update id="actualizar" text=""></update>
+	<query id="nuevo" text="select top 1 periodo,mes_operativo,[numero asiento],fecha from mv_asientos where mes_operativo = month('?') order by periodo desc,mes_operativo desc,[numero asiento] desc"></query>
+	<query id="cab" text="select descripcion,iva,numero_documento from ma_cuentas c 
+left outer join ma_cuentasadic a
+on c.codigo=a.codigo
+where c.codigo like '?'"></query></queries>

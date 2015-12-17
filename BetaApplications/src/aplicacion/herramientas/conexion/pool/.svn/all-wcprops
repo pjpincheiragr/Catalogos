@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/betapplications/!svn/ver/12/BetaApplications/src/aplicacion/herramientas/conexion/pool
+END
+MiniConnectionPoolManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/betapplications/!svn/ver/12/BetaApplications/src/aplicacion/herramientas/conexion/pool/MiniConnectionPoolManager.java
+END
+Pool.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/betapplications/!svn/ver/4/BetaApplications/src/aplicacion/herramientas/conexion/pool/Pool.java
+END
+TestMiniConnectionPoolManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/betapplications/!svn/ver/4/BetaApplications/src/aplicacion/herramientas/conexion/pool/TestMiniConnectionPoolManager.java
+END

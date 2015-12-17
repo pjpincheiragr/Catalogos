@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cliente" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<style name="Title" isDefault="false" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" isDefault="false" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" isDefault="false" forecolor="#666666" backcolor="#C0C0C0" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" isDefault="false" backcolor="#C0C0C0" fontName="Arial" fontSize="10"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cuenta" class="java.lang.String"/>
+	<parameter name="cuenta_descripcion" class="java.lang.String"/>
+	<parameter name="caja" class="java.lang.String"/>
+	<parameter name="desde" class="java.lang.String"/>
+	<parameter name="hasta" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select convert(varchar(10),movimiento.fecha,105) as fecha,movimiento.tc,movimiento.idcomprobante,
+ movimiento.detalle,(case when movimiento.debe_haber like 'D' then movimiento.importe else -movimiento.importe end) as importe
+from b_mv_asientos movimiento
+where movimiento.cuenta like $P{cuenta}
+and movimiento.anulado=0
+and movimiento.fecha between $P{desde} and $P{hasta} 
+and movimiento.idcajas like $P{caja}]]>
+	</queryString>
+	<field name="fecha" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idcomprobante" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="detalle" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="importe" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="saldo" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{importe}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="56" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="0" width="468" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Reporte Simulacion de Movimientos]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="45" y="22" width="58" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{cuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="22" width="224" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{cuenta_descripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="22" width="45" height="13"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[cuenta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="36" width="45" height="13"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[caja:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="45" y="36" width="58" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{caja}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="72" height="13" backcolor="#C0C0C0"/>
+				<textElement/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="72" y="0" width="62" height="13" backcolor="#C0C0C0"/>
+				<textElement/>
+				<text><![CDATA[Tc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="134" y="0" width="100" height="13" backcolor="#C0C0C0"/>
+				<textElement/>
+				<text><![CDATA[Idcomprobante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="234" y="0" width="258" height="13" backcolor="#C0C0C0"/>
+				<textElement/>
+				<text><![CDATA[Detalle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="492" y="0" width="63" height="13" backcolor="#C0C0C0"/>
+				<textElement/>
+				<text><![CDATA[importe]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="58" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="18" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="2" width="72" height="13" backcolor="#B5B5B5"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="72" y="2" width="62" height="13" backcolor="#B5B5B5"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="134" y="2" width="100" height="13" backcolor="#B5B5B5"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{idcomprobante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" mode="Opaque" x="234" y="2" width="258" height="13" backcolor="#B5B5B5"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{detalle}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement mode="Opaque" x="492" y="2" width="63" height="13" backcolor="#B5B5B5"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{importe}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="19" width="555" height="39"/>
+				<subreportParameter name="tc">
+					<subreportParameterExpression><![CDATA[$F{tc}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idcomprobante">
+					<subreportParameterExpression><![CDATA[$F{idcomprobante}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA["reports/detalle_cuenta.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="17" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="14"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="14"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="14"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="17">
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="455" y="0" width="100" height="14"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{saldo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="415" y="0" width="40" height="14"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Saldo:]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

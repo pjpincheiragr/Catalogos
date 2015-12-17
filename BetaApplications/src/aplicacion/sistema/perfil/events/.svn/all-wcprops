@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/betapplications/!svn/ver/44/BetaApplications/src/aplicacion/sistema/perfil/events
+END
+ActionListenerHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/betapplications/!svn/ver/44/BetaApplications/src/aplicacion/sistema/perfil/events/ActionListenerHandler.java
+END
+WindowAdapterHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/betapplications/!svn/ver/44/BetaApplications/src/aplicacion/sistema/perfil/events/WindowAdapterHandler.java
+END
+KeyListenerHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/betapplications/!svn/ver/44/BetaApplications/src/aplicacion/sistema/perfil/events/KeyListenerHandler.java
+END
+DropTargetListenerHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/betapplications/!svn/ver/44/BetaApplications/src/aplicacion/sistema/perfil/events/DropTargetListenerHandler.java
+END
+ItemListenerHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/betapplications/!svn/ver/44/BetaApplications/src/aplicacion/sistema/perfil/events/ItemListenerHandler.java
+END

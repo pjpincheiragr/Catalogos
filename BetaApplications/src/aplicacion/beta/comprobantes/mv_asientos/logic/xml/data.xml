@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+<query id="existe" text="select * from b_mv_asientos where  mes_operativo =? and [numero_asiento] = ?"></query>
+<insert id="insertar" text="insert into b_mv_asientos 
+	(mes_operativo,
+	numero_asiento,
+	secuencia,detalle,fecha,cuenta,cuenta_descripcion,observacion,
+	tc,idcomprobante,debe_haber,importe,anulado,idcajas,us) values (
+	'?',
+	'?',
+	'?',
+	'?',
+	'?',
+	'?',
+	'?',
+	'?',
+	'?',
+	'?',
+	'?',
+	?,
+	'0',
+	'?',
+	?)">
+</insert>
+<delete id="eliminar" text="delete from b_mv_asientos where periodo =? and mes_operativo= ? and [numero_asiento] =?"></delete>
+<update id="actualizar" text=""></update>
+<query id="nuevo" text="select top 1 mes_operativo,[numero_asiento],fecha from b_mv_asientos where mes_operativo = month('?') order by mes_operativo desc,[numero_asiento] desc"></query>
+<query id="cab" text="select descripcion,iva,numero_documento from ma_cuentas c 
+left outer join ma_cuentasadic a
+on c.codigo=a.codigo
+where c.codigo like '?'"></query></queries>

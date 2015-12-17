@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/betapplications/!svn/ver/47/BetaApplications/src/aplicacion/herramientas/conexion/conectores
+END
+MsSQL.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/betapplications/!svn/ver/8/BetaApplications/src/aplicacion/herramientas/conexion/conectores/MsSQL.java
+END
+SQLite.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/betapplications/!svn/ver/4/BetaApplications/src/aplicacion/herramientas/conexion/conectores/SQLite.java
+END
+MySQL.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/betapplications/!svn/ver/7/BetaApplications/src/aplicacion/herramientas/conexion/conectores/MySQL.java
+END
+ODBC.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/betapplications/!svn/ver/8/BetaApplications/src/aplicacion/herramientas/conexion/conectores/ODBC.java
+END
+Generic.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/betapplications/!svn/ver/47/BetaApplications/src/aplicacion/herramientas/conexion/conectores/Generic.java
+END

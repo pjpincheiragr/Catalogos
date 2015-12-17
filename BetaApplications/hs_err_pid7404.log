@@ -1,0 +1,166 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+# java.lang.OutOfMemoryError: requested 32756 bytes for ChunkPool::allocate. Out of swap space?
+#
+#  Internal Error (allocation.cpp:166), pid=7404, tid=6168
+#  Error: ChunkPool::allocate
+#
+# JRE version: 6.0_24-b07
+# Java VM: Java HotSpot(TM) Client VM (19.1-b02 mixed mode, sharing windows-x86 )
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x02be2800):  JavaThread "CompilerThread0" daemon [_thread_in_native, id=6168, stack(0x02e10000,0x02e60000)]
+
+Stack: [0x02e10000,0x02e60000],  sp=0x02e5f830,  free space=318k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x1fa487]
+V  [jvm.dll+0xa340c]
+V  [jvm.dll+0x2a09]
+V  [jvm.dll+0x2c02]
+V  [jvm.dll+0x2e03]
+V  [jvm.dll+0x1a3a5e]
+V  [jvm.dll+0x5229d]
+V  [jvm.dll+0x523fa]
+V  [jvm.dll+0x5291c]
+V  [jvm.dll+0x52a98]
+V  [jvm.dll+0x54de3]
+V  [jvm.dll+0x26d31]
+V  [jvm.dll+0x26dcc]
+V  [jvm.dll+0x26f23]
+V  [jvm.dll+0x270f4]
+V  [jvm.dll+0x869ec]
+V  [jvm.dll+0x874e5]
+V  [jvm.dll+0x1e4624]
+V  [jvm.dll+0x18317c]
+C  [msvcr71.dll+0x9565]
+C  [kernel32.dll+0xb713]
+
+
+Current CompileTask:
+C1:740      org.pushingpixels.substance.internal.plugin.BasePlugin.getDefaults(Ljava/lang/Object;)[Ljava/lang/Object; (1033 bytes)
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x0312b000 JavaThread "Image Fetcher 0" daemon [_thread_blocked, id=7820, stack(0x03780000,0x037d0000)]
+  0x032bdc00 JavaThread "jTDS TimerThread" daemon [_thread_blocked, id=1436, stack(0x03ca0000,0x03cf0000)]
+  0x0316e400 JavaThread "Thread-6" [_thread_in_native, id=7020, stack(0x03820000,0x03870000)]
+  0x03461c00 JavaThread "Trident pulse source thread" daemon [_thread_blocked, id=5596, stack(0x03c50000,0x03ca0000)]
+  0x03458c00 JavaThread "Trident callback thread" daemon [_thread_blocked, id=7284, stack(0x03c00000,0x03c50000)]
+  0x03412400 JavaThread "TimerQueue" daemon [_thread_blocked, id=5400, stack(0x03bb0000,0x03c00000)]
+  0x003f7c00 JavaThread "DestroyJavaVM" [_thread_blocked, id=6768, stack(0x00920000,0x00970000)]
+  0x0331dc00 JavaThread "AWT-EventQueue-0" [_thread_in_native, id=7804, stack(0x037d0000,0x03820000)]
+  0x0331f000 JavaThread "AWT-Shutdown" [_thread_blocked, id=5008, stack(0x035e0000,0x03630000)]
+  0x03293800 JavaThread "AWT-Windows" daemon [_thread_in_native, id=5372, stack(0x03630000,0x03680000)]
+  0x0324ec00 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=5624, stack(0x03590000,0x035e0000)]
+  0x02bf1400 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=6684, stack(0x02e60000,0x02eb0000)]
+=>0x02be2800 JavaThread "CompilerThread0" daemon [_thread_in_native, id=6168, stack(0x02e10000,0x02e60000)]
+  0x02be1000 JavaThread "Attach Listener" daemon [_thread_blocked, id=6828, stack(0x02dc0000,0x02e10000)]
+  0x02bdfc00 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=6716, stack(0x02d70000,0x02dc0000)]
+  0x02bdc400 JavaThread "Finalizer" daemon [_thread_blocked, id=3336, stack(0x02d20000,0x02d70000)]
+  0x02bd7800 JavaThread "Reference Handler" daemon [_thread_blocked, id=3272, stack(0x02cd0000,0x02d20000)]
+
+Other Threads:
+  0x02b9b800 VMThread [stack: 0x02c80000,0x02cd0000] [id=2652]
+  0x02c0cc00 WatcherThread [stack: 0x02eb0000,0x02f00000] [id=6568]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ def new generation   total 9920K, used 6281K [0x22a20000, 0x234e0000, 0x27f70000)
+  eden space 8832K,  67% used [0x22a20000, 0x22fec3a0, 0x232c0000)
+  from space 1088K,  31% used [0x232c0000, 0x233160b0, 0x233d0000)
+  to   space 1088K,   0% used [0x233d0000, 0x233d0000, 0x234e0000)
+ tenured generation   total 22428K, used 14233K [0x27f70000, 0x29557000, 0x32a20000)
+   the space 22428K,  63% used [0x27f70000, 0x28d56448, 0x28d56600, 0x29557000)
+ compacting perm gen  total 12288K, used 6117K [0x32a20000, 0x33620000, 0x36a20000)
+   the space 12288K,  49% used [0x32a20000, 0x33019778, 0x33019800, 0x33620000)
+    ro space 10240K,  51% used [0x36a20000, 0x36f4cf58, 0x36f4d000, 0x37420000)
+    rw space 12288K,  54% used [0x37420000, 0x37ab8f50, 0x37ab9000, 0x38020000)
+
+Dynamic libraries:
+0x00400000 - 0x00424000 	C:\Archivos de programa\Java\jre6\bin\javaw.exe
+0x7c910000 - 0x7c9c5000 	C:\WINDOWS\system32\ntdll.dll
+0x7c800000 - 0x7c903000 	C:\WINDOWS\system32\kernel32.dll
+0x77da0000 - 0x77e4c000 	C:\WINDOWS\system32\ADVAPI32.dll
+0x77e50000 - 0x77ee2000 	C:\WINDOWS\system32\RPCRT4.dll
+0x77fc0000 - 0x77fd1000 	C:\WINDOWS\system32\Secur32.dll
+0x7e390000 - 0x7e421000 	C:\WINDOWS\system32\USER32.dll
+0x77ef0000 - 0x77f39000 	C:\WINDOWS\system32\GDI32.dll
+0x7c340000 - 0x7c396000 	C:\Archivos de programa\Java\jre6\bin\msvcr71.dll
+0x6d7f0000 - 0x6da96000 	C:\Archivos de programa\Java\jre6\bin\client\jvm.dll
+0x76b00000 - 0x76b2e000 	C:\WINDOWS\system32\WINMM.dll
+0x6d7a0000 - 0x6d7ac000 	C:\Archivos de programa\Java\jre6\bin\verify.dll
+0x6d320000 - 0x6d33f000 	C:\Archivos de programa\Java\jre6\bin\java.dll
+0x6d280000 - 0x6d288000 	C:\Archivos de programa\Java\jre6\bin\hpi.dll
+0x76bb0000 - 0x76bbb000 	C:\WINDOWS\system32\PSAPI.DLL
+0x6d7e0000 - 0x6d7ef000 	C:\Archivos de programa\Java\jre6\bin\zip.dll
+0x6d000000 - 0x6d14a000 	C:\Archivos de programa\Java\jre6\bin\awt.dll
+0x72f80000 - 0x72fa6000 	C:\WINDOWS\system32\WINSPOOL.DRV
+0x77be0000 - 0x77c38000 	C:\WINDOWS\system32\msvcrt.dll
+0x76340000 - 0x7635d000 	C:\WINDOWS\system32\IMM32.dll
+0x774b0000 - 0x775ed000 	C:\WINDOWS\system32\ole32.dll
+0x773a0000 - 0x774a3000 	C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.5512_x-ww_35d4ce83\COMCTL32.dll
+0x77f40000 - 0x77fb6000 	C:\WINDOWS\system32\SHLWAPI.dll
+0x5b150000 - 0x5b188000 	C:\WINDOWS\system32\uxtheme.dll
+0x6d230000 - 0x6d27f000 	C:\Archivos de programa\Java\jre6\bin\fontmanager.dll
+0x10000000 - 0x10009000 	C:\Archivos de programa\Softex\OmniPass\SCUREDLL.dll
+0x7e6a0000 - 0x7eec1000 	C:\WINDOWS\system32\shell32.dll
+0x6d600000 - 0x6d613000 	C:\Archivos de programa\Java\jre6\bin\net.dll
+0x71a30000 - 0x71a47000 	C:\WINDOWS\system32\WS2_32.dll
+0x71a20000 - 0x71a28000 	C:\WINDOWS\system32\WS2HELP.dll
+0x719d0000 - 0x71a10000 	C:\WINDOWS\system32\mswsock.dll
+0x66740000 - 0x66799000 	C:\WINDOWS\system32\hnetcfg.dll
+0x590d0000 - 0x590d7000 	C:\WINDOWS\System32\wship6.dll
+0x6d620000 - 0x6d629000 	C:\Archivos de programa\Java\jre6\bin\nio.dll
+0x76ee0000 - 0x76f07000 	C:\WINDOWS\system32\DNSAPI.dll
+0x76f70000 - 0x76f78000 	C:\WINDOWS\System32\winrnr.dll
+0x76f20000 - 0x76f4d000 	C:\WINDOWS\system32\WLDAP32.dll
+0x16080000 - 0x160a5000 	C:\Archivos de programa\Bonjour\mdnsNSP.dll
+0x76d20000 - 0x76d39000 	C:\WINDOWS\system32\Iphlpapi.dll
+0x47190000 - 0x471a2000 	C:\WINDOWS\system32\pnrpnsp.dll
+0x76f80000 - 0x76f86000 	C:\WINDOWS\system32\rasadhlp.dll
+0x68000000 - 0x68036000 	C:\WINDOWS\system32\rsaenh.dll
+0x76630000 - 0x766e5000 	C:\WINDOWS\system32\USERENV.dll
+0x597f0000 - 0x59845000 	C:\WINDOWS\system32\netapi32.dll
+0x6c2c0000 - 0x6c322000 	C:\Documents and Settings\Agustin\Configuración local\Temp\libsqlitejdbc-4661904997286008444.lib
+0x6d1a0000 - 0x6d1c3000 	C:\Archivos de programa\Java\jre6\bin\dcpr.dll
+0x6d440000 - 0x6d465000 	C:\Archivos de programa\Java\jre6\bin\jpeg.dll
+0x6d560000 - 0x6d5f3000 	C:\Archivos de programa\Java\jre6\bin\mlib_image.dll
+0x71a10000 - 0x71a18000 	C:\WINDOWS\System32\wshtcpip.dll
+
+VM Arguments:
+jvm_args: -Djava.library.path=C:\usr\lib\jvm -Dfile.encoding=Cp1252 
+java_command: aplicacion.actualizacion.global.test._Test
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+CLASSPATH=.;C:\Archivos de programa\Java\jre6\lib\ext\QTJava.zip
+PATH=C:/Archivos de programa/Java/jre6/bin/client;C:/Archivos de programa/Java/jre6/bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Archivos de programa\Microsoft SQL Server\80\Tools\BINN;C:\Archivos de programa\QuickTime\QTSystem\;c:\Archivos de programa\Microsoft SQL Server\90\Tools\binn\;C:\Archivos de programa\Microsoft SQL Server\80\Tools\Binn\;C:\Archivos de programa\DataDirect\ConnectforODBC60\Drivers;C:\Archivos de programa\Archivos comunes\Citrix\System32;C:\ARCHIV~1\ARCHIV~1\FOLIOS~1;C:\Archivos de programa\Nmap
+USERNAME=Agustin
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 6 Model 15 Stepping 13, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows XP Build 2600 Service Pack 3
+
+CPU:total 2 (2 cores per cpu, 1 threads per core) family 6 model 15 stepping 13, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3
+
+Memory: 4k page, physical 2087276k(550440k free), swap 6119312k(5108k free)
+
+vm_info: Java HotSpot(TM) Client VM (19.1-b02) for windows-x86 JRE (1.6.0_24-b07), built on Feb  2 2011 17:44:41 by "java_re" with MS VC++ 7.1 (VS2003)
+
+time: Wed Aug 24 10:59:37 2011
+elapsed time: 22 seconds
+

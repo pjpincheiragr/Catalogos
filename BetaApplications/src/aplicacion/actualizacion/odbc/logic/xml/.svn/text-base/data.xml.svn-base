@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+
+<query id="query" text="
+select consulta from b_configuracion_catalogos where idproveedor like '?'
+">
+
+</query>
+<query id="politica" text="
+select politica_default from b_configuracion_catalogos where idproveedor like '?'">
+</query>
+
+
+
+</queries>

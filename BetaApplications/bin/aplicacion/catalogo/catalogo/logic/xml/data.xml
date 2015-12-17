@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+<query id="consulta_articulos" text="
+select top 200 v.idarticulo,a.descripcion,v.precio2,v.descripabrev,a.cantidad,ISNULL(s.cantidadud, 0),isnull(a.clasificacion,''),a.desde,a.hasta 
+from V_MA_ARTICULOS v LEFT OUTER JOIN Stk_Stock_UDKG s ON  v.IDARTICULO = s.IdArticulo 
+left outer join b_articulos_aplicacion a on v.idarticulo=a.idarticulo ">
+</query>
+
+</queries>

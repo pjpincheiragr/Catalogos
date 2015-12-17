@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<querys>
+<insert id="log" text="
+insert into LOGS ( 
+		fecha,
+		pc,
+		ip,
+		message,
+		localizedmessage,
+		_exception
+		) values (getdate(),
+		'?',
+		'?',
+		'?',
+		'?',
+		'?')
+">
+</insert>
+<insert id="batch_instruction" text="
+insert into logs_batch_instructions
+(idbatch,instruccion,descripcion) values
+(@idbatch,@sec,'?')
+set @sec=@sec+1
+">
+</insert>
+
+<insert id="batch" text="
+insert into logs_batch (fecha,ip,pc) values (
+getdate(),'?','?')
+declare @idbatch bigint
+declare @sec int
+set @sec=0
+select @idbatch=max(id) from logs_batch
+" >
+</insert>
+
+<insert id="operacion" text="
+insert into b_operaciones 
+(iduser,operacion,ip,pc,fecha,cuenta,tc,idcomprobante) 
+values ('?','?','?','?',getdate(),'?','?','?')
+
+">
+</insert>
+<constant id="fotostorage2" text="e:/fotos/">
+</constant>
+<constant id="fotostorage" text="//192.168.4.150/windows storage/fotos/"></constant>
+</querys>

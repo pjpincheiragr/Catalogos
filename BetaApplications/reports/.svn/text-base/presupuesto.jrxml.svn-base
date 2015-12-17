@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pdc_preparar" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<style name="Title" isDefault="false" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" isDefault="false" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" isDefault="false" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" isDefault="false" fontName="Arial" fontSize="12"/>
+	<parameter name="idpedido" class="java.lang.String">
+		<defaultValueExpression><![CDATA["00000018"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha" class="java.lang.String">
+		<defaultValueExpression><![CDATA["01-01-1900"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="plazo_entrega" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Inmediata"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="condicion" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Contado Efectivo"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="subtotal" class="java.lang.String"/>
+	<parameter name="iva" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.String"/>
+	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="telefono" class="java.lang.String"/>
+	<parameter name="email" class="java.lang.String"/>
+	<parameter name="mantenimiento" class="java.lang.String"/>
+	<parameter name="mostrar_marcas" class="java.lang.String"/>
+	<parameter name="mostrar_iva" class="java.lang.String">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="aliciva" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[1.21]]></defaultValueExpression>
+	</parameter>
+	<parameter name="observacion" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     b_PDC."IdPedido" AS b_PDC_IdPedido,
+     b_PDC."Descripcion" AS b_PDC_Descripcion,
+     b_PDC."Fecha_Creacion" AS b_PDC_Fecha_Creacion,
+     b_PDC."cliente" AS b_PDC_cliente,
+     b_PDC."cliente_descripcion" AS b_PDC_cliente_descripcion,
+     b_PDC_Item."Descripcion" AS b_PDC_Item_Descripcion,
+     b_PDC_Item."cantidad" AS b_PDC_Item_cantidad,
+     b_PDC_Item."idarticulo" AS b_PDC_Item_idarticulo,
+     isnull(V_MA_ARTICULOS.DescripAbrev,'') AS V_MA_ARTICULOS_DescripAbrev,
+     MA_CUENTASADIC."DOCUMENTO_TIPO" AS MA_CUENTASADIC_DOCUMENTO_TIPO,
+     MA_CUENTASADIC."NUMERO_DOCUMENTO" AS MA_CUENTASADIC_NUMERO_DOCUMENTO,
+     (case when $P{mostrar_iva} like '1' then  round(b_PDC_Item.cotiza/1.21,2) else round(b_PDC_Item.cotiza,2) end )AS b_PDC_Item_cotiza,
+(case when $P{mostrar_iva} like '1' then round(b_PDC_Item.cotiza/1.21,2)*b_PDC_Item.cantidad else round(b_PDC_Item.cotiza,2)*b_PDC_Item.cantidad  end ) AS b_PDC_Item_total,
+     b_PDC_Item.item AS b_PDC_Item_item,
+     V_TA_VENDEDORES."Nombre" AS V_TA_VENDEDORES_Nombre
+FROM
+     "dbo"."b_PDC_Item" b_PDC_Item INNER JOIN "dbo"."b_PDC" b_PDC ON b_PDC_Item."idpedido" = b_PDC."IdPedido"
+     INNER JOIN "dbo"."V_MA_ARTICULOS" V_MA_ARTICULOS ON b_PDC_Item."idarticulo" = V_MA_ARTICULOS."IDARTICULO"
+     INNER JOIN "dbo"."MA_CUENTASADIC" MA_CUENTASADIC ON b_PDC."cliente" = MA_CUENTASADIC."CODIGO"
+     INNER JOIN "dbo"."V_TA_VENDEDORES" V_TA_VENDEDORES ON b_PDC."idvendedor" = V_TA_VENDEDORES."IdVendedor"
+WHERE
+     b_PDC."IdPedido" LIKE $P{idpedido}
+
+     and
+ b_PDC_Item."seleccionado" = 1
+ORDER BY
+     b_PDC_Item."item" ASC]]>
+	</queryString>
+	<field name="b_PDC_IdPedido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PDC_Descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PDC_Fecha_Creacion" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PDC_cliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PDC_cliente_descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PDC_Item_Descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PDC_Item_cantidad" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PDC_Item_idarticulo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="V_MA_ARTICULOS_DescripAbrev" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MA_CUENTASADIC_DOCUMENTO_TIPO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MA_CUENTASADIC_NUMERO_DOCUMENTO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PDC_Item_cotiza" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PDC_Item_total" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PDC_Item_item" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="V_TA_VENDEDORES_Nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="label_iva" class="java.lang.String">
+		<variableExpression><![CDATA[$P{mostrar_iva}.compareTo("1")?"":"IVA:"]]></variableExpression>
+	</variable>
+	<variable name="label_subtotal" class="java.lang.String">
+		<variableExpression><![CDATA[$P{mostrar_iva}.compareTo("1")?"":"SUBTOTAL:"]]></variableExpression>
+	</variable>
+	<variable name="precio" class="java.lang.String">
+		<variableExpression><![CDATA[$P{mostrar_iva}.compareTo("1")?$F{b_PDC_Item_cotiza}.doubleValue():$F{b_PDC_Item_cotiza}.doubleValue()]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="121" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="0" width="125" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[PRESUPUESTO]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="63" y="80" width="91" height="13"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{b_PDC_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="155" y="80" width="295" height="13"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{b_PDC_cliente_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="463" y="6" width="86" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="64" y="93" width="90" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{MA_CUENTASADIC_NUMERO_DOCUMENTO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="80" width="62" height="13"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[cliente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="363" y="6" width="100" height="13"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="93" width="62" height="13"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[dni/cuit:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="238" y="6" width="100" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{idpedido}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="106" width="62" height="13"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[vendedor:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="64" y="106" width="90" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{V_TA_VENDEDORES_Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="19" width="238" height="14"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="33" width="237" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{telefono}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="193" y="6" width="45" height="13"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[numero:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="46" width="237" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="64" y="59" width="401" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{b_PDC_Descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="25" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="1" y="10" width="224" height="15" forecolor="#000000"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="368" y="10" width="44" height="15" forecolor="#000000"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="421" y="10" width="62" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[precio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="10" width="63" height="16" forecolor="#000000"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="368" y="0" width="44" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{b_PDC_Item_cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="1" y="0" width="224" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{b_PDC_Item_Descripcion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement style="Detail" x="490" y="0" width="63" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{b_PDC_Item_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="0" width="133" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mostrar_marcas}.compareTo("1")?"":$F{V_MA_ARTICULOS_DescripAbrev}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="421" y="0" width="62" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{b_PDC_Item_cotiza}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="46" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Pag "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="1" y="8" width="189" height="38"/>
+				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
+					<jr:codeExpression><![CDATA[$F{b_PDC_IdPedido}]]></jr:codeExpression>
+				</jr:Code39>
+			</componentElement>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="180">
+			<staticText>
+				<reportElement x="25" y="10" width="100" height="13"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[condicion de venta:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="125" y="10" width="124" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{condicion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="35" y="26" width="90" height="13"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[plazo de entrega:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="125" y="26" width="124" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{plazo_entrega}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="87" width="91" height="16"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mostrar_iva}.compareTo("1")?"":$P{subtotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="368" y="127" width="82" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="107" width="91" height="16"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mostrar_iva}.compareTo("1")?"":$P{iva}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="127" width="91" height="16"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Column header" x="425" y="149" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Pag "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="505" y="149" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="41" width="124" height="13"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[mantenimiento de oferta:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="125" y="41" width="124" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{mantenimiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="107" width="82" height="16"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{label_iva}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="87" width="81" height="16"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{label_subtotal}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="1" y="143" width="192" height="35"/>
+				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
+					<jr:codeExpression><![CDATA[$F{b_PDC_IdPedido}]]></jr:codeExpression>
+				</jr:Code39>
+			</componentElement>
+			<staticText>
+				<reportElement x="1" y="71" width="100" height="16"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observaciones:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="101" y="71" width="262" height="66"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{observacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

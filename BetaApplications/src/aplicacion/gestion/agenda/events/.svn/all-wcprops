@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/betapplications/!svn/ver/24/BetaApplications/src/aplicacion/gestion/agenda/events
+END
+ActionListenerHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/betapplications/!svn/ver/24/BetaApplications/src/aplicacion/gestion/agenda/events/ActionListenerHandler.java
+END
+WindowAdapterHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/betapplications/!svn/ver/24/BetaApplications/src/aplicacion/gestion/agenda/events/WindowAdapterHandler.java
+END
+KeyListenerHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/betapplications/!svn/ver/24/BetaApplications/src/aplicacion/gestion/agenda/events/KeyListenerHandler.java
+END
+ItemListenerHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/betapplications/!svn/ver/24/BetaApplications/src/aplicacion/gestion/agenda/events/ItemListenerHandler.java
+END

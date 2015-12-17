@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_control" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<parameter name="deposito_descripcion" class="java.lang.String"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="where_clause" class="java.lang.String"/>
+	<parameter name="having_clause" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select a.idarticulo,a.descripcion,a.descripabrev,a.costo,isnull(sum(s.cantidadud),0) as Stock,
+isnull(sum(s.cantidadud),0)*a.costo as 'Total',
+isnull(s.iddeposito,'   1') as iddeposito,
+isnull(d.descripcion,'') as 'iddeposito_descripcion'
+from 
+v_ma_articulos a 
+left outer join 
+v_mv_stock s
+on a.idarticulo=s.idarticulo
+left outer join v_ta_deposito d
+on s.iddeposito=d.iddeposito
+and s.anulado=0
+where $P!{where_clause}
+group by a.idarticulo,a.descripcion,a.descripabrev,a.costo,isnull(d.descripcion,''),isnull(s.iddeposito,'   1')
+$P!{having_clause}]]>
+	</queryString>
+	<field name="idarticulo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripabrev" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="costo" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Stock" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Total" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="iddeposito" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="iddeposito_descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="suma_items_linea" class="java.lang.Double" resetType="Group" resetGroup="linea" calculation="Sum">
+		<variableExpression><![CDATA[$F{Stock}]]></variableExpression>
+	</variable>
+	<variable name="suma_items_total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Stock}]]></variableExpression>
+	</variable>
+	<variable name="suma_importe_linea" class="java.lang.Double" resetType="Group" resetGroup="linea" calculation="Sum">
+		<variableExpression><![CDATA[$F{Total}]]></variableExpression>
+	</variable>
+	<variable name="suma_importe_total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Total}]]></variableExpression>
+	</variable>
+	<variable name="suma_items_deposito" class="java.lang.Double" resetType="Group" resetGroup="deposito" calculation="Sum">
+		<variableExpression><![CDATA[$F{Stock}]]></variableExpression>
+	</variable>
+	<variable name="suma_costo_deposito" class="java.lang.Double" resetType="Group" resetGroup="deposito" calculation="Sum">
+		<variableExpression><![CDATA[$F{Total}]]></variableExpression>
+	</variable>
+	<group name="linea">
+		<groupExpression><![CDATA[$F{descripabrev}]]></groupExpression>
+		<groupHeader>
+			<band height="25">
+				<textField>
+					<reportElement x="0" y="4" width="100" height="18"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{descripabrev}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="21" width="555" height="1"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="17">
+				<textField>
+					<reportElement x="339" y="0" width="78" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{suma_items_linea}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="287" y="0" width="52" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Total Linea:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="420" y="0" width="56" height="17"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[$]]></text>
+				</staticText>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="477" y="0" width="78" height="16"/>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{suma_importe_linea}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="deposito">
+		<groupExpression><![CDATA[$F{iddeposito}]]></groupExpression>
+		<groupHeader>
+			<band height="23">
+				<staticText>
+					<reportElement x="0" y="0" width="44" height="20"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[Deposito:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="44" y="0" width="36" height="20"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{iddeposito}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="83" y="0" width="123" height="20"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{iddeposito_descripcion}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="21">
+				<staticText>
+					<reportElement x="266" y="0" width="73" height="20"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[Total Deposito:]]></text>
+				</staticText>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="477" y="0" width="78" height="18"/>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{suma_costo_deposito}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="420" y="0" width="56" height="20"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[$]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="363" y="1" width="54" height="19"/>
+					<textElement textAlignment="Right">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{suma_items_deposito}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="395" height="22"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Reporte Stock]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="491" y="2" width="64" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="2" width="71" height="16"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="181" y="35" width="199" height="1"/>
+			</line>
+			<line>
+				<reportElement x="181" y="16" width="199" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="181" y="18" width="71" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Deposito]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="252" y="17" width="128" height="17"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{deposito_descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[idarticulo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="10" width="253" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="353" y="11" width="64" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Stock]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="30" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="417" y="11" width="59" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[$]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="477" y="10" width="78" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[total $]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="1" width="100" height="16"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{idarticulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="1" width="253" height="16"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="17" width="555" height="1" forecolor="#999999"/>
+			</line>
+			<textField>
+				<reportElement x="353" y="1" width="64" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{Stock}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="417" y="0" width="59" height="17"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{costo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="476" y="1" width="79" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{Total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="93">
+			<textField>
+				<reportElement x="342" y="0" width="78" height="16"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{suma_items_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="290" y="0" width="52" height="16"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="0" width="57" height="16"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[$]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="477" y="0" width="78" height="16"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{suma_importe_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

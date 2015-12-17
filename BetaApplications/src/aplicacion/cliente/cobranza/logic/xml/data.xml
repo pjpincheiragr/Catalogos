@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+	<query id="_proximo_cpte" text="select x_ultimo_nro from b_ta_cpte where codigo = '?'"></query>
+	<query id="account_info" text="select M.codigo,M.descripcion,
+		isnull(a.telefono,''),
+		isnull(a.fax,''),
+		isnull(a.mail,''),
+		isnull(a.contacto,''),
+		isnull(a.localidad,''),
+		isnull(a.observaciones,''),
+		a.iva, 
+		a.numero_documento, 
+		a.idcond_cpra_vta, 
+		t.descripcion, 
+		isnull(a.calle,''),isnull(ltrim(a.numero),''),isnull(a.piso,''),ltrim(a.cpostal), 
+		a.provincia,st.descripcion,tip.descripcion 
+		FROM MA_CUENTAS M LEFT OUTER JOIN 
+		MA_CUENTASADIC  a  
+		ON M.CODIGO = a.CODIGO left outer join v_ta_cpra_vta t 
+		 on a.idcond_cpra_vta = t.idcond_cpra_vta 
+		 left outer join ta_tipodocumento tip 
+		 on a.iva=tip.codigo 
+		 left outer join ta_estados st 
+		 on a.provincia=st.codigo 
+		 where M.codigo like '?'"></query>
+	<query id="update_cpte" text="update b_ta_cpte set x_ultimo_nro=?
+ where codigo = 'CBCT'"></query>
+	<query id="anticipos_disponibles" text=" select b.fecha,b.tc,b.idcomprobante,b.anticipo,'' 
+ from b_cbs b left outer join b_aplicacion a 
+ on b.tc=a.origen_tc 
+ and b.idcomprobante=a.origen_idcomprobante and a.anulado=0 
+ where (a.origen_tc is null or isnull(a.anulado,1) =1)
+ and b.anticipo > 0 and b.anulada=0 
+ and b.cuenta like '?'
+ group by b.fecha,b.tc,b.idcomprobante,b.anticipo "></query>
+	<query id="notas_de_credito_disponibles" text="select b.fecha_comprobante,b.tc,b.idcomprobante,b.total_cpte,'Pendiente'   
+from b_fvn b 
+left outer join 
+b_aplicacion a on 
+b.tc=a.origen_tc 
+ and b.idcomprobante=a.origen_idcomprobante 
+ where (b.tc like 'ncn' ) 
+ and b.anulada=0 
+ and b.cuenta like '?'
+ and a.tc is null 	
+ group by b.fecha_comprobante,b.tc,b.idcomprobante,b.total_cpte,a.tc "></query>
+	<query id="notas_de_credito_utilizadas" text="select c.fecha_comprobante,c.tc,c.idcomprobante,c.total_cpte,''  
+from b_aplicacion a  left outer join b_fvn c 
+on a.origen_tc = c.tc and a.origen_idcomprobante=c.idcomprobante 
+where a.origen_tc like 'ncn' 
+and a.tc like 'cbct' 
+and a.idcomprobante like '?'"></query>
+	<query id="anticipos_utilizados" text="select b.fecha,a.origen_tc,a.origen_idcomprobante,b.anticipo,'' 
+from b_aplicacion a  
+left outer join b_cbs b 
+on a.origen_tc=b.tc 
+and a.origen_idcomprobante=b.idcomprobante 
+where  
+a.tc like 'cbct' and a.idcomprobante like '?' and  
+a.origen_tc like 'cbct'  
+and b.anticipo > 0 "></query>
+	<query id="creditos" text=" select b.fecha_comprobante,b.tc,b.idcomprobante, 
+ (case when b.tc like 'NCN' then b.total_cpte else 0 end) as Importe,
+ (case when b.tc like 'NCN' then 'Sin Aplicacion' else 'Pendiente de Pago' end) as Estado
+ from b_fvn b 
+ left outer join 
+ b_aplicacion a 
+ on b.tc=a.origen_tc and b.idcomprobante=a.origen_idcomprobante and a.anulado=0 
+ where a.tc is null and b.tc like 'NCN'
+ and b.cuenta like '?' 
+ and b.anulada = 0 "></query>
+	<query id="saldos" text="select b.fecha_comprobante,b.tc,b.idcomprobante,b.total_cpte,'Pendiente'   
+from b_fvn b 
+left outer join 
+b_aplicacion a on 
+b.tc=a.origen_tc 
+and b.idcomprobante=a.origen_idcomprobante and a.anulado=0 
+where (b.tc like 'fvn' ) 
+and b.anulada=0 
+and b.cuenta like '?'
+and a.tc is null 	
+group by b.fecha_comprobante,b.tc,b.idcomprobante,b.total_cpte,a.tc 
+order by b.fecha_comprobante,b.tc,b.idcomprobante 
+"></query>
+	<query id="anulada" text="select anulada from b_cbs where tc like 'cbct' and idcomprobante like '?'"></query>
+	<query id="existe_cobranza" text="select * from b_cbs where tc like 'cbct' and idcomprobante like '?'"></query>
+	<query id="check_medios" text="select codigoopcional,descripcion,codigo  from ma_cuentas 
+where mediodepago is not null 
+and  codigoopcional like '?'"></query>
+	<query id="banco" text="select descripcion from v_ta_bancos where ltrim(idbanco) like '?'"></query>
+	<query id="proximo_numero_asiento" text="select top 1 isnull(numero_asiento,0) from b_mv_asientos 
+where mes_operativo =? 
+order by numero_asiento desc "></query>
+	<query id="anular_cbs" text="update b_cbs set anulada=1 where tc like '?' and idcomprobante like '?' "></query>
+	<query id="anular_asiento" text="update b_mv_asientos set anulado=1 where tc like '?' and idcomprobante like '?'"></query>
+	<query id="anular_aplicacion" text="update b_aplicacion set anulado=1 where tc like '?' and idcomprobante like '?'"></query>
+	<query id="load_encabezado" text="select c.importe,c.anticipo,c.cuenta,m.descripcion,c.fecha 
+from b_cbs c  
+left outer join ma_cuentas m 
+on c.cuenta=m.codigo 
+where c.idcomprobante like '?'"></query>
+	<query id="load_medios_de_pago" text="select a.cuenta,a.cuenta_descripcion,a.importe,a.cht_idbanco,a.cht_serie,a.cht_numero,a.cht_vencimiento,a.cht_importe,b.descripcion  
+from b_mv_asientos a left outer join v_ta_bancos b on ltrim(rtrim(a.cht_idbanco)) = rtrim(ltrim(b.idbanco)) 
+where a.tc like 'cbct' and a.idcomprobante like '?' 
+and (a.cuenta like '111010001' or a.cuenta like '111010002' or a.cuenta like '42101' ) 
+order by a.secuencia  "></query>
+	<query id="load_cptes_pagados" text="select convert(varchar(10),b.fecha,105),b.tc,b.idcomprobante,b.importe   
+from b_aplicacion a 
+left outer join  
+b_fvn f on a.origen_tc=f.tc and a.origen_idcomprobante=f.idcomprobante 
+where a.tc like 'CBCT' 
+and a.idcomprobante like '?' 
+and a.origen_tc not like 'cbct' 
+and a.origen_tc not like 'ncn' "></query>
+	<query id="insert_cbs" text="insert into b_cbs (tc,idcomprobante,cuenta,fecha,importe,anticipo) values ('?','?','?','?',?,?)"></query>
+	<query id="insert_aplicacion" text="insert b_aplicacion (cuenta,tc,idcomprobante,origen_tc,origen_idcomprobante,fecha) values ('?','?','?','?','?','?')"></query>
+	<query id="detalle_fvn" text="select i.idarticulo,i.descripcion,i.cantidad,i.precio,isnull(a.descripabrev,'') 
+from  b_fvn c left outer join 
+b_fvn_item i on  
+c.tc=i.tc and c.idcomprobante=i.idcomprobante 
+left outer join v_ma_articulos a on i.idarticulo=a.idarticulo 
+where 
+c.cuenta like '?' 
+and c.tc like '?' 
+and c.idcomprobante like '?' 
+and c.anulada=0
+order by c.idcomprobante,i.idarticulo "></query></queries>

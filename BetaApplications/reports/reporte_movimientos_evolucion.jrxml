@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cliente" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<style name="Title" isDefault="false" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" isDefault="false" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" isDefault="false" forecolor="#666666" backcolor="#C0C0C0" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" isDefault="false" backcolor="#C0C0C0" fontName="Arial" fontSize="10"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Beta\\reports\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cuenta" class="java.lang.String"/>
+	<parameter name="cuenta_descripcion" class="java.lang.String"/>
+	<parameter name="caja" class="java.lang.String"/>
+	<parameter name="desde" class="java.lang.String"/>
+	<parameter name="hasta" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select convert(varchar(10),movimiento.fecha,105) as fecha,movimiento.tc,movimiento.idcomprobante,
+ movimiento.detalle,(case when movimiento.debe_haber like 'D' then movimiento.importe else -movimiento.importe end) as importe
+from b_mv_asientos movimiento
+where movimiento.cuenta like $P{cuenta}
+and movimiento.anulado=0
+and movimiento.fecha between $P{desde} and $P{hasta} 
+and movimiento.idcajas like $P{caja}]]>
+	</queryString>
+	<field name="fecha" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idcomprobante" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="detalle" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="importe" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="saldo" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{importe}]]></variableExpression>
+	</variable>
+	<group name="dias">
+		<groupExpression><![CDATA[$F{fecha}]]></groupExpression>
+		<groupHeader>
+			<band height="50"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="50"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="56" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="0" width="468" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Reporte Simulacion de Movimientos Evolucion]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="45" y="22" width="58" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{cuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="22" width="224" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{cuenta_descripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="22" width="45" height="13"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[cuenta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="36" width="45" height="13"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[caja:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="45" y="36" width="58" height="13"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{caja}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="14" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="60" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="155" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="190">
+			<lineChart>
+				<chart evaluationTime="Group" evaluationGroup="dias">
+					<reportElement x="0" y="34" width="543" height="124"/>
+					<chartTitle>
+						<titleExpression><![CDATA[$F{importe}]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset/>
+				<linePlot>
+					<plot>
+						<seriesColor seriesOrder="0" color="#CC0000"/>
+						<seriesColor seriesOrder="1" color="#9BF80D"/>
+						<seriesColor seriesOrder="2" color="#DD84BD"/>
+						<seriesColor seriesOrder="3" color="#FC1BCB"/>
+						<seriesColor seriesOrder="4" color="#28EB31"/>
+					</plot>
+					<categoryAxisFormat>
+						<axisFormat>
+							<labelFont/>
+							<tickLabelFont/>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat>
+							<labelFont/>
+							<tickLabelFont/>
+						</axisFormat>
+					</valueAxisFormat>
+				</linePlot>
+			</lineChart>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

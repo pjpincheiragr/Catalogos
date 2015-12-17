@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<querys>
+<query id="insert" text="
+insert into b_aplicacion_repuestos (id,clasificacion,padre) values ('?','?','?')
+">
+</query>
+
+<query id="update" text="
+update b_aplicacion_repuestos set clasificacion='?' where id like '?'
+">
+</query>
+
+<query id="update_id" text="
+update b_aplicacion_repuestos set id='?' where id like '?'
+">
+</query>
+
+<query id="update_padre" text="
+update b_aplicacion_repuestos set padre='?' where padre like '?'
+">
+</query>
+
+<query id="clasificacion" text="
+select id from b_aplicacion_repuestos where clasificacion like '?' and padre like '?'
+">
+</query>
+
+<query id="exist" text="
+select * from b_aplicacion_repuestos where id like '?'
+">
+</query>
+
+<query id="delete" text="
+delete from  b_aplicacion_repuestos where  clasificacion like '?' and padre like '?'
+">
+</query>
+
+<query id="select" text="
+ select clasificacion,id 
+ from b_aplicacion_repuestos  
+ where padre like '?'  
+ order by clasificacion 
+">
+</query>
+
+<query id="select_all" text="
+ select id,clasificacion,padre 
+ from b_aplicacion_repuestos 
+ order by padre ,clasificacion
+  ">
+</query>
+</querys>

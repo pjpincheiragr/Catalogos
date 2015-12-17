@@ -1,0 +1,156 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_STACK_OVERFLOW (0xc00000fd) at pc=0x6d8ea603, pid=61720, tid=50600
+#
+# JRE version: 6.0_33-b03
+# Java VM: Java HotSpot(TM) Client VM (20.8-b03 mixed mode, sharing windows-x86 )
+# Problematic frame:
+# 
+[error occurred during error reporting (printing problematic frame), id 0xc0000005]
+
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x03250800):  JavaThread "Thread-41592" [_thread_in_vm, id=50600, stack(0x04d10000,0x04d60000)]
+
+siginfo: ExceptionCode=0xc00000fd, ExceptionInformation=0x00000001 0x04d5cd88 
+
+Registers:
+EAX=0x00003000, EBX=0x03471410, ECX=0x04d5cd88, EDX=0x04d16038
+ESP=0x04d5fd94, EBP=0x04d5fdf0, ESI=0x00000003, EDI=0x04d5fd88
+EIP=0x6d8ea603, EFLAGS=0x00010206
+
+Top of Stack: (sp=0x04d5fd94)
+0x04d5fd94:   03471420 03250800 6d8ead83 03471410
+0x04d5fda4:   03250800 00000000 04d5fdf0 6d83d091
+0x04d5fdb4:   03471414 03471418 0347141c 03471420
+0x04d5fdc4:   00000005 03250800 03471414 03250800
+0x04d5fdd4:   00000000 00000000 00000000 00000000
+0x04d5fde4:   04d5ff18 0000000a 03471410 04d5fe34
+0x04d5fdf4:   6d97c3e1 04d5ff10 00d5fe8c 04d5fe90
+0x04d5fe04:   009a9290 03471410 03250800 00000000 
+
+Instructions: (pc=0x6d8ea603)
+0x6d8ea5e3:   39 19 04 00 8b f8 a1 28 5f a5 6d be 01 00 00 00
+0x6d8ea5f3:   3b c6 7c 1c e8 04 2b 04 00 0f af c6 8b cf 2b c8
+0x6d8ea603:   c7 01 00 00 00 00 a1 28 5f a5 6d 46 3b f0 7e e4
+0x6d8ea613:   5f 5e c3 cc cc cc cc cc cc cc cc cc cc 55 8b ec 
+
+
+Register to memory mapping:
+
+EAX=0x00003000 is an unknown value
+EBX=0x03471410 is an unknown value
+ECX=0x04d5cd88 is pointing into the stack for thread: 0x03250800
+EDX=0x04d16038 is pointing into the stack for thread: 0x03250800
+ESP=0x04d5fd94 is pointing into the stack for thread: 0x03250800
+EBP=0x04d5fdf0 is pointing into the stack for thread: 0x03250800
+ESI=0x00000003 is an unknown value
+EDI=0x04d5fd88 is pointing into the stack for thread: 0x03250800
+
+
+Stack: [0x04d10000,0x04d60000],  sp=0x04d5fd94,  free space=319k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+
+[error occurred during error reporting (printing native stack), id 0xc0000005]
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+=>0x03250800 JavaThread "Thread-41592" [_thread_in_vm, id=50600, stack(0x04d10000,0x04d60000)]
+  0x03472c00 JavaThread "Thread-5971" [_thread_blocked, id=676, stack(0x04cc0000,0x04d10000)]
+  0x03251800 JavaThread "Thread-5821" [_thread_blocked, id=125560, stack(0x04c70000,0x04cc0000)]
+  0x03392800 JavaThread "Thread-5672" [_thread_blocked, id=142816, stack(0x04c20000,0x04c70000)]
+  0x03252800 JavaThread "Thread-5521" [_thread_blocked, id=72576, stack(0x04bd0000,0x04c20000)]
+  0x04071400 JavaThread "Thread-5372" [_thread_blocked, id=57532, stack(0x04b80000,0x04bd0000)]
+  0x03421c00 JavaThread "Thread-5223" [_thread_blocked, id=39408, stack(0x04b30000,0x04b80000)]
+  0x03441400 JavaThread "Thread-5075" [_thread_blocked, id=32012, stack(0x04ae0000,0x04b30000)]
+  0x033e2c00 JavaThread "Thread-4926" [_thread_blocked, id=227708, stack(0x04a90000,0x04ae0000)]
+  0x03311800 JavaThread "Thread-4778" [_thread_blocked, id=211780, stack(0x04a40000,0x04a90000)]
+  0x033e3000 JavaThread "Thread-4629" [_thread_blocked, id=175836, stack(0x049f0000,0x04a40000)]
+  0x0343e800 JavaThread "Thread-4480" [_thread_blocked, id=168652, stack(0x049a0000,0x049f0000)]
+  0x034c3400 JavaThread "Thread-4329" [_thread_blocked, id=161820, stack(0x04950000,0x049a0000)]
+  0x0341d400 JavaThread "Thread-3734" [_thread_blocked, id=76608, stack(0x04900000,0x04950000)]
+  0x033b1000 JavaThread "Thread-3585" [_thread_blocked, id=61960, stack(0x048b0000,0x04900000)]
+  0x033b0000 JavaThread "Thread-3436" [_thread_blocked, id=42084, stack(0x04860000,0x048b0000)]
+  0x033b3800 JavaThread "Thread-3286" [_thread_blocked, id=25860, stack(0x04810000,0x04860000)]
+  0x033a5400 JavaThread "Thread-3138" [_thread_blocked, id=28888, stack(0x03f80000,0x03fd0000)]
+  0x033a6800 JavaThread "Thread-2990" [_thread_blocked, id=212044, stack(0x03f30000,0x03f80000)]
+  0x0347e000 JavaThread "SwingWorker-pool-1-thread-5" daemon [_thread_blocked, id=179008, stack(0x03dd0000,0x03e20000)]
+  0x034a5400 JavaThread "SwingWorker-pool-1-thread-4" daemon [_thread_blocked, id=56316, stack(0x03e70000,0x03ec0000)]
+  0x032f9400 JavaThread "SwingWorker-pool-1-thread-3" daemon [_thread_blocked, id=61600, stack(0x03e20000,0x03e70000)]
+  0x030d0400 JavaThread "SwingWorker-pool-1-thread-2" daemon [_thread_blocked, id=44116, stack(0x03d30000,0x03d80000)]
+  0x03301c00 JavaThread "SwingWorker-pool-1-thread-1" daemon [_thread_blocked, id=63648, stack(0x03ce0000,0x03d30000)]
+  0x032d4400 JavaThread "jTDS TimerThread" daemon [_thread_blocked, id=32504, stack(0x03d80000,0x03dd0000)]
+  0x003f7c00 JavaThread "DestroyJavaVM" [_thread_blocked, id=61148, stack(0x00920000,0x00970000)]
+  0x03271c00 JavaThread "TimerQueue" daemon [_thread_blocked, id=62924, stack(0x03b90000,0x03be0000)]
+  0x032f3400 JavaThread "AWT-EventQueue-0" [_thread_blocked, id=59768, stack(0x03830000,0x03880000)]
+  0x0310dc00 JavaThread "AWT-Shutdown" [_thread_blocked, id=63000, stack(0x037e0000,0x03830000)]
+  0x030cdc00 JavaThread "AWT-Windows" daemon [_thread_in_native, id=61184, stack(0x03630000,0x03680000)]
+  0x02b99000 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=60636, stack(0x03590000,0x035e0000)]
+  0x02be9c00 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=60768, stack(0x02e60000,0x02eb0000)]
+  0x02be7400 JavaThread "C1 CompilerThread0" daemon [_thread_blocked, id=48116, stack(0x02e10000,0x02e60000)]
+  0x02be2400 JavaThread "Attach Listener" daemon [_thread_blocked, id=61152, stack(0x02dc0000,0x02e10000)]
+  0x02be1000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=50544, stack(0x02d70000,0x02dc0000)]
+  0x02bd9400 JavaThread "Finalizer" daemon [_thread_blocked, id=58276, stack(0x02d20000,0x02d70000)]
+  0x02bd7c00 JavaThread "Reference Handler" daemon [_thread_blocked, id=49816, stack(0x02cd0000,0x02d20000)]
+
+Other Threads:
+  0x02b9b800 VMThread [stack: 0x02c80000,0x02cd0000] [id=50332]
+  0x02bf5000 WatcherThread [stack: 0x02eb0000,0x02f00000] [id=60836]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ def new generation   total 78656K, used 58301K [0x22a20000, 0x27f70000, 0x27f70000)
+  eden space 69952K,  83% used [0x22a20000, 0x2630f6a8, 0x26e70000)
+  from space 8704K,   0% used [0x26e70000, 0x26e70000, 0x276f0000)
+  to   space 8704K,   0% used [0x276f0000, 0x276f0000, 0x27f70000)
+ tenured generation   total 174784K, used 174739K [0x27f70000, 0x32a20000, 0x32a20000)
+   the space 174784K,  99% used [0x27f70000, 0x32a14eb8, 0x32a15000, 0x32a20000)
+ compacting perm gen  total 12288K, used 8137K [0x32a20000, 0x33620000, 0x36a20000)
+   the space 12288K,  66% used [0x32a20000, 0x33212578, 0x33212600, 0x33620000)
+    ro space 10240K,  51% used [0x36a20000, 0x36f4e720, 0x36f4e800, 0x37420000)
+    rw space 12288K,  55% used [0x37420000, 0x37aba880, 0x37abaa00, 0x38020000)
+
+Code Cache  [0x009a0000, 0x00cb8000, 0x029a0000)
+ total_blobs=1687 nmethods=1460 adapters=162 free_code_cache=30317568 largest_free_block=960
+
+Dynamic libraries:
+
+[error occurred during error reporting (printing dynamic libraries), id 0xc0000005]
+
+VM Arguments:
+jvm_args: -Djava.library.path=C:\usr\lib\jvm -Dfile.encoding=Cp1252 
+java_command: aplicacion.sistema.menu.test._Test
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+CLASSPATH=.;C:\Archivos de programa\Java\jre6\lib\ext\QTJava.zip
+PATH=C:/Archivos de programa/Java/jre7/bin/client;C:/Archivos de programa/Java/jre7/bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Archivos de programa\Microsoft SQL Server\80\Tools\BINN;C:\Archivos de programa\QuickTime\QTSystem\;c:\Archivos de programa\Microsoft SQL Server\90\Tools\binn\;C:\Archivos de programa\Microsoft SQL Server\80\Tools\Binn\;C:\Archivos de programa\DataDirect\ConnectforODBC60\Drivers;C:\Archivos de programa\Archivos comunes\Citrix\System32;C:\ARCHIV~1\ARCHIV~1\FOLIOS~1;C:\Archivos de programa\OpenLink Software\UDA\bin\;C:\Archivos de programa\Nmap
+USERNAME=Agustin
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 6 Model 15 Stepping 13, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows XP Build 2600 Service Pack 3
+
+CPU:total 2 (2 cores per cpu, 1 threads per core) family 6 model 15 stepping 13, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3
+
+Memory: 4k page, physical 2087276k(210564k free), swap 6119312k(5120k free)
+
+vm_info: Java HotSpot(TM) Client VM (20.8-b03) for windows-x86 JRE (1.6.0_33-b03), built on May  9 2012 09:39:57 by "java_re" with MS VC++ 7.1 (VS2003)
+
+time: Mon Jul 08 00:48:04 2013
+elapsed time: 137397 seconds
+

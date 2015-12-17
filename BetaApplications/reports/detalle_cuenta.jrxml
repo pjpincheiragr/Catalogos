@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="detalle_cuenta" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<style name="style1" isDefault="false" backcolor="#CCCCCC"/>
+	<parameter name="tc" class="java.lang.String"/>
+	<parameter name="idcomprobante" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select cuenta,cuenta_descripcion,
+isnull(bancos.descripcion,'') as banco,
+isnull(cht_serie,'')+'-'+isnull(cht_numero,'') as cheque,
+isnull(cht_vencimiento,'') as vencimiento,
+(case when movimiento.debe_haber like 'D' then movimiento.importe else 0 end)as debe,
+(case when movimiento.debe_haber like 'H' then movimiento.importe else 0 end)as haber
+
+from b_mv_asientos movimiento
+left outer join v_ta_bancos bancos
+on movimiento.cht_idbanco=ltrim(bancos.idbanco)
+where tc like $P{tc} and idcomprobante like $P{idcomprobante} 
+and movimiento.anulado=0
+order by movimiento.debe_haber]]>
+	</queryString>
+	<field name="cuenta" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cuenta_descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="banco" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cheque" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vencimiento" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="debe" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="haber" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="59" height="13" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[cuenta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="59" y="0" width="128" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[detalle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="0" width="77" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Debe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="187" y="0" width="89" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Banco]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="0" width="63" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[cheque]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="0" width="59" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[vencimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="475" y="0" width="80" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Haber]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="59" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="0" width="128" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cuenta_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="187" y="0" width="89" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{banco}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="276" y="0" width="63" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cheque}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="339" y="0" width="59" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{vencimiento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="398" y="0" width="77" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{debe}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="475" y="0" width="80" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{haber}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="12" splitType="Stretch"/>
+	</columnFooter>
+</jasperReport>

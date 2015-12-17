@@ -1,0 +1,505 @@
+package aplicacion.sistema.usuario.gui;
+
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
+import javax.swing.JFrame;
+import javax.swing.JToolBar;
+import java.awt.Rectangle;
+import java.awt.Dimension;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
+import javax.swing.JTabbedPane;
+import java.awt.GridBagLayout;
+
+public class _Frame extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel jContentPane = null;
+	private JToolBar jToolBar = null;
+	private JButton _btn_cargar = null;
+	private JButton _btn_salir = null;
+	
+	private JTextField _txt_idusuario = null;
+	private JLabel jLabel = null;
+	private JButton _btn_cancelar = null;
+	private JTextField _txt_nombre = null;
+	private JPasswordField _txt_password = null;
+	private JLabel jLabel1 = null;
+	private JLabel jLabel2 = null;
+	private JButton _btn_aplicaciones = null;
+	private JButton _btn_buscar_usuario = null;
+	private JButton _btn_guardar = null;
+	private JButton _btn_eliminar = null;
+	private JScrollPane jScrollPane = null;
+	private JTable jTable = null;
+	private JButton _btn_error = null;
+	private JButton _btn_play = null;
+	private JCheckBox _chk_super = null;
+	private JCheckBox _chk_monitor = null;
+	private JCheckBox _chk_internet = null;
+	private JLabel jLabel4 = null;
+	private JTabbedPane jTabbedPane = null;
+	private JPanel jPanel = null;
+	private JPanel jPanel1 = null;
+	private JTextField _txt_idvendedor = null;
+	private JButton _btn_buscar_vendedor = null;
+	private JTextField _txt_vendedor_descripcion = null;
+	private JCheckBox _chk_asterisk = null;
+	private JButton _btn_help = null;
+	/**
+	 * This is the default constructor
+	 */
+	public _Frame() {
+		super();
+		initialize();
+	}
+
+	/**
+	 * This method initializes this
+	 * 
+	 * @return void
+	 */
+	private void initialize() {
+		this.setSize(545, 410);
+		this.setContentPane(getJContentPane());
+		this.setTitle("Usuario");
+	}
+
+	/**
+	 * This method initializes jContentPane
+	 * 
+	 * @return javax.swing.JPanel
+	 */
+	private JPanel getJContentPane() {
+		if (jContentPane == null) {
+			jLabel4 = new JLabel();
+			jLabel4.setBounds(new Rectangle(19, 118, 75, 15));
+			jLabel4.setHorizontalAlignment(SwingConstants.RIGHT);
+			jLabel4.setFont(new Font("Dialog", Font.PLAIN, 10));
+			jLabel4.setText("idvendedor");
+			jLabel2 = new JLabel();
+			jLabel2.setBounds(new Rectangle(10, 93, 85, 14));
+			jLabel2.setFont(new Font("Dialog", Font.PLAIN, 10));
+			jLabel2.setHorizontalAlignment(SwingConstants.RIGHT);
+			jLabel2.setText("Password");
+			jLabel1 = new JLabel();
+			jLabel1.setBounds(new Rectangle(10, 67, 85, 14));
+			jLabel1.setFont(new Font("Dialog", Font.PLAIN, 10));
+			jLabel1.setHorizontalAlignment(SwingConstants.RIGHT);
+			jLabel1.setText("Nombre");
+			jLabel = new JLabel();
+			jLabel.setBounds(new Rectangle(8, 45, 87, 13));
+			jLabel.setFont(new Font("Dialog", Font.PLAIN, 10));
+			jLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+			jLabel.setText("idUsuario");
+			jContentPane = new JPanel();
+			jContentPane.setLayout(null);
+			jContentPane.add(getJToolBar(), null);
+			jContentPane.add(get_txt_idusuario(), null);
+			jContentPane.add(jLabel, null);
+			jContentPane.add(get_txt_nombre(), null);
+			jContentPane.add(get_txt_password(), null);
+			jContentPane.add(jLabel1, null);
+			jContentPane.add(jLabel2, null);
+			jContentPane.add(get_btn_buscar_usuario(), null);
+			jContentPane.add(get_btn_cargar(), null);
+			jContentPane.add(jLabel4, null);
+			jContentPane.add(getJTabbedPane(), null);
+			jContentPane.add(get_txt_idvendedor(), null);
+			jContentPane.add(get_btn_buscar_vendedor(), null);
+			jContentPane.add(get_txt_vendedor_descripcion(), null);
+		}
+		return jContentPane;
+	}
+
+	/**
+	 * This method initializes jToolBar	
+	 * 	
+	 * @return javax.swing.JToolBar	
+	 */
+	private JToolBar getJToolBar() {
+		if (jToolBar == null) {
+			jToolBar = new JToolBar();
+			jToolBar.setBounds(new Rectangle(0, 0, 535, 24));
+			jToolBar.setFloatable(false);
+			jToolBar.add(get_btn_cancelar());
+			jToolBar.add(get_btn_guardar());
+			jToolBar.add(get_btn_aplicaciones());
+			jToolBar.add(get_btn_eliminar());
+			jToolBar.add(get_btn_salir());
+			jToolBar.add(get_btn_error());
+			jToolBar.add(get_btn_play());
+			jToolBar.add(get_btn_help());
+		}
+		return jToolBar;
+	}
+
+	/**
+	 * This method initializes _btn_cargar	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	public JButton get_btn_cargar() {
+		if (_btn_cargar == null) {
+			_btn_cargar = new JButton();
+			_btn_cargar.setIcon(new ImageIcon(getClass().getResource("/icons/reload3.png")));
+			_btn_cargar.setToolTipText("Cargar");
+			_btn_cargar.setBounds(new Rectangle(297, 42, 23, 18));
+		}
+		return _btn_cargar;
+	}
+
+	/**
+	 * This method initializes _btn_salir	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	public JButton get_btn_salir() {
+		if (_btn_salir == null) {
+			_btn_salir = new JButton();
+			_btn_salir.setIcon(new ImageIcon(getClass().getResource("/icons/exit.png")));
+			_btn_salir.setToolTipText("Salir");
+		}
+		return _btn_salir;
+	}
+
+
+	/**
+	 * This method initializes _txt_idusuario	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	public JTextField get_txt_idusuario() {
+		if (_txt_idusuario == null) {
+			_txt_idusuario = new JTextField();
+			_txt_idusuario.setToolTipText("Filtrar Parametros");
+			_txt_idusuario.setBounds(new Rectangle(104, 44, 160, 16));
+		}
+		return _txt_idusuario;
+	}
+
+	/**
+	 * This method initializes _btn_cancelar	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	public JButton get_btn_cancelar() {
+		if (_btn_cancelar == null) {
+			_btn_cancelar = new JButton();
+			_btn_cancelar.setIcon(new ImageIcon(getClass().getResource("/icons/stock_calc-cancel.png")));
+			_btn_cancelar.setToolTipText("Cancelar Edicion");
+		}
+		return _btn_cancelar;
+	}
+
+	/**
+	 * This method initializes _txt_nombre	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	public JTextField get_txt_nombre() {
+		if (_txt_nombre == null) {
+			_txt_nombre = new JTextField();
+			_txt_nombre.setBounds(new Rectangle(103, 67, 157, 16));
+		}
+		return _txt_nombre;
+	}
+
+	/**
+	 * This method initializes _txt_password	
+	 * 	
+	 * @return javax.swing.JPasswordField	
+	 */
+	public JPasswordField get_txt_password() {
+		if (_txt_password == null) {
+			_txt_password = new JPasswordField();
+			_txt_password.setBounds(new Rectangle(102, 93, 156, 16));
+		}
+		return _txt_password;
+	}
+
+	/**
+	 * This method initializes _btn_aplicaciones	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	public JButton get_btn_aplicaciones() {
+		if (_btn_aplicaciones == null) {
+			_btn_aplicaciones = new JButton();
+			_btn_aplicaciones.setIcon(new ImageIcon(getClass().getResource("/icons/gnome-run.png")));
+			_btn_aplicaciones.setToolTipText("Configurar Aplicaciones");
+		}
+		return _btn_aplicaciones;
+	}
+
+	/**
+	 * This method initializes _btn_buscar_usuario	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	public JButton get_btn_buscar_usuario() {
+		if (_btn_buscar_usuario == null) {
+			_btn_buscar_usuario = new JButton();
+			_btn_buscar_usuario.setBounds(new Rectangle(269, 42, 23, 18));
+			_btn_buscar_usuario.setIcon(new ImageIcon(getClass().getResource("/icons/gnome-searchtool.png")));
+			_btn_buscar_usuario.setToolTipText("Buscar Usuario");
+		}
+		return _btn_buscar_usuario;
+	}
+
+	/**
+	 * This method initializes _btn_guardar	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	public JButton get_btn_guardar() {
+		if (_btn_guardar == null) {
+			_btn_guardar = new JButton();
+			_btn_guardar.setIcon(new ImageIcon(getClass().getResource("/icons/filesave.png")));
+			_btn_guardar.setToolTipText("Guardar");
+		}
+		return _btn_guardar;
+	}
+
+	/**
+	 * This method initializes _btn_eliminar	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	public JButton get_btn_eliminar() {
+		if (_btn_eliminar == null) {
+			_btn_eliminar = new JButton();
+			_btn_eliminar.setIcon(new ImageIcon(getClass().getResource("/icons/edit-delete.png")));
+			_btn_eliminar.setToolTipText("Eliminar Usuario");
+		}
+		return _btn_eliminar;
+	}
+
+	/**
+	 * This method initializes jScrollPane	
+	 * 	
+	 * @return javax.swing.JScrollPane	
+	 */
+	private JScrollPane getJScrollPane() {
+		if (jScrollPane == null) {
+			jScrollPane = new JScrollPane();
+			jScrollPane.setBounds(new Rectangle(5, 7, 478, 112));
+			jScrollPane.setViewportView(getJTable());
+		}
+		return jScrollPane;
+	}
+
+	/**
+	 * This method initializes jTable1	
+	 * 	
+	 * @return javax.swing.JTable	
+	 */
+	public JTable getJTable() {
+		if (jTable == null) {
+			jTable = new JTable();
+		}
+		return jTable;
+	}
+	
+	public void setJTable(JTable table){
+		this.jTable=table;
+		this.jScrollPane.setViewportView(jTable);
+	}
+
+	/**
+	 * This method initializes _btn_error	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	public JButton get_btn_error() {
+		if (_btn_error == null) {
+			_btn_error = new JButton();
+			_btn_error.setIcon(new ImageIcon(getClass().getResource("/icons/media-record.png")));
+		}
+		return _btn_error;
+	}
+
+	/**
+	 * This method initializes _btn_play	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	public JButton get_btn_play() {
+		if (_btn_play == null) {
+			_btn_play = new JButton();
+			_btn_play.setIcon(new ImageIcon(getClass().getResource("/icons/gtk-media-play-ltr.png")));
+			_btn_play.setToolTipText("Restaurar Session Desde XML");
+		}
+		return _btn_play;
+	}
+
+	/**
+	 * This method initializes _chk_super	
+	 * 	
+	 * @return javax.swing.JCheckBox	
+	 */
+	public JCheckBox get_chk_super() {
+		if (_chk_super == null) {
+			_chk_super = new JCheckBox();
+			_chk_super.setFont(new Font("Dialog", Font.PLAIN, 10));
+			_chk_super.setBounds(new Rectangle(15, 11, 101, 16));
+			_chk_super.setText("super usuario");
+		}
+		return _chk_super;
+	}
+
+	/**
+	 * This method initializes _chk_monitor	
+	 * 	
+	 * @return javax.swing.JCheckBox	
+	 */
+	public JCheckBox get_chk_monitor() {
+		if (_chk_monitor == null) {
+			_chk_monitor = new JCheckBox();
+			_chk_monitor.setFont(new Font("Dialog", Font.PLAIN, 10));
+			_chk_monitor.setBounds(new Rectangle(14, 35, 93, 17));
+			_chk_monitor.setText("monitor");
+		}
+		return _chk_monitor;
+	}
+
+	/**
+	 * This method initializes _chk_internet	
+	 * 	
+	 * @return javax.swing.JCheckBox	
+	 */
+	public JCheckBox get_chk_internet() {
+		if (_chk_internet == null) {
+			_chk_internet = new JCheckBox();
+			_chk_internet.setFont(new Font("Dialog", Font.PLAIN, 10));
+			_chk_internet.setBounds(new Rectangle(15, 59, 178, 17));
+			_chk_internet.setText("Acceso Desde Internet");
+		}
+		return _chk_internet;
+	}
+
+	/**
+	 * This method initializes jTabbedPane	
+	 * 	
+	 * @return javax.swing.JTabbedPane	
+	 */
+	private JTabbedPane getJTabbedPane() {
+		if (jTabbedPane == null) {
+			jTabbedPane = new JTabbedPane();
+			jTabbedPane.setBounds(new Rectangle(20, 214, 496, 155));
+			jTabbedPane.addTab("Cajas", null, getJPanel(), null);
+			jTabbedPane.addTab("Seguridad", null, getJPanel1(), null);
+		}
+		return jTabbedPane;
+	}
+
+	/**
+	 * This method initializes jPanel	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getJPanel() {
+		if (jPanel == null) {
+			jPanel = new JPanel();
+			jPanel.setLayout(null);
+			jPanel.add(getJScrollPane(), null);
+		}
+		return jPanel;
+	}
+
+	/**
+	 * This method initializes jPanel1	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getJPanel1() {
+		if (jPanel1 == null) {
+			jPanel1 = new JPanel();
+			jPanel1.setLayout(null);
+			jPanel1.add(get_chk_super(), null);
+			jPanel1.add(get_chk_monitor(), null);
+			jPanel1.add(get_chk_internet(), null);
+			jPanel1.add(get_chk_asterisk(), null);
+		}
+		return jPanel1;
+	}
+
+	/**
+	 * This method initializes _txt_idvendedor	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	public JTextField get_txt_idvendedor() {
+		if (_txt_idvendedor == null) {
+			_txt_idvendedor = new JTextField();
+			_txt_idvendedor.setBounds(new Rectangle(101, 118, 84, 17));
+		}
+		return _txt_idvendedor;
+	}
+
+	/**
+	 * This method initializes _btn_buscar_vendedor	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	public JButton get_btn_buscar_vendedor() {
+		if (_btn_buscar_vendedor == null) {
+			_btn_buscar_vendedor = new JButton();
+			_btn_buscar_vendedor.setBounds(new Rectangle(190, 116, 20, 19));
+			_btn_buscar_vendedor.setIcon(new ImageIcon(getClass().getResource("/icons/gnome-searchtool.png")));
+		}
+		return _btn_buscar_vendedor;
+	}
+
+	/**
+	 * This method initializes _txt_vendedor_descripcion	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	public JTextField get_txt_vendedor_descripcion() {
+		if (_txt_vendedor_descripcion == null) {
+			_txt_vendedor_descripcion = new JTextField();
+			_txt_vendedor_descripcion.setBounds(new Rectangle(216, 118, 177, 17));
+			_txt_vendedor_descripcion.setEditable(false);
+		}
+		return _txt_vendedor_descripcion;
+	}
+
+	/**
+	 * This method initializes _chk_asterisk	
+	 * 	
+	 * @return javax.swing.JCheckBox	
+	 */
+	public JCheckBox get_chk_asterisk() {
+		if (_chk_asterisk == null) {
+			_chk_asterisk = new JCheckBox();
+			_chk_asterisk.setBounds(new Rectangle(14, 83, 124, 15));
+			_chk_asterisk.setFont(new Font("Dialog", Font.PLAIN, 10));
+			_chk_asterisk.setText("Asterisk");
+		}
+		return _chk_asterisk;
+	}
+
+	/**
+	 * This method initializes _btn_help	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton get_btn_help() {
+		if (_btn_help == null) {
+			_btn_help = new JButton();
+			_btn_help.setIcon(new ImageIcon(getClass().getResource("/icons/gnome-help-16.png")));
+			_btn_help.setToolTipText("Ayuda");
+		}
+		return _btn_help;
+	}
+}  //  @jve:decl-index=0:visual-constraint="10,10"

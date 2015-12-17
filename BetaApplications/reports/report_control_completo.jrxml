@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_control" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<parameter name="idcontrol" class="java.lang.String">
+		<defaultValueExpression><![CDATA[1737]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select ctr.idcontrol,ctr.linea,ctr.idusuario,isnull(ctr.fecha,getdate()) as fecha,articulos.idarticulo as idarticulo, 
+articulos.descripcion as descripcion, 
+articulos.costo, 
+isnull(stock.cantidadud,0) AS stk, 
+isnull(Control.cantidad, 0) as cant 
+FROM b_control ctr 
+left outer join  
+V_MA_ARTICULOS articulos on ctr.linea=articulos.descripabrev 
+LEFT OUTER  JOIN  
+Stk_Stock_UDKG stock ON  
+articulos.IDARTICULO = stock.IdArticulo  
+left outer join b_control_items control 
+on articulos.idarticulo=control.idarticulo and control.idcontrol=ctr.idcontrol  
+where ctr.idcontrol like $P{idcontrol}
+order by articulos.IDARTICULO]]>
+	</queryString>
+	<field name="idcontrol" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="linea" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idusuario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idarticulo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="costo" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="stk" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cant" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="ajuste" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{cant}-$F{stk}]]></variableExpression>
+	</variable>
+	<variable name="cantidad_sistema" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{stk}]]></variableExpression>
+	</variable>
+	<variable name="cantidad_control" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{cant}]]></variableExpression>
+	</variable>
+	<variable name="items_sistema" class="java.lang.String"/>
+	<variable name="items_control" class="java.lang.String"/>
+	<variable name="valor_sistema" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo}*$F{stk}]]></variableExpression>
+	</variable>
+	<variable name="valor_control" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo}*$F{cant}]]></variableExpression>
+	</variable>
+	<variable name="diferencias_items" class="java.lang.String"/>
+	<variable name="diferencias_cantidad" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{cantidad_control}-$V{cantidad_sistema}]]></variableExpression>
+	</variable>
+	<variable name="diferencias_valor" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{valor_control}-$V{valor_sistema}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="19" width="395" height="40"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Reporte Completo Control Stock]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="37" y="0" width="28" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{idcontrol}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="123" y="0" width="68" height="20"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{idusuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="241" y="0" width="184" height="20"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{linea}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="37" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[control:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="0" width="39" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[usuario:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="212" y="0" width="29" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Linea:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="467" y="0" width="88" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[idarticulo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="10" width="260" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="10" width="65" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Costo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="425" y="10" width="42" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Stock]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="518" y="10" width="37" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ajuste]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="467" y="10" width="50" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Conteo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{idarticulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="260" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="360" y="0" width="65" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{costo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="425" y="0" width="42" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{stk}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="467" y="0" width="50" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{cant}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="517" y="0" width="38" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{ajuste}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="19" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="22" splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="93">
+			<staticText>
+				<reportElement x="262" y="20" width="65" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="262" y="40" width="65" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Items:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="262" y="60" width="65" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="0" width="68" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Stock Sistema]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="395" y="0" width="72" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Control]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="467" y="0" width="88" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diferencia]]></text>
+			</staticText>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="327" y="20" width="68" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{cantidad_sistema}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="395" y="20" width="72" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{cantidad_control}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="327" y="60" width="68" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{valor_sistema}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="395" y="60" width="72" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{valor_control}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="467" y="20" width="88" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{diferencias_cantidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="467" y="60" width="88" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{diferencias_valor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

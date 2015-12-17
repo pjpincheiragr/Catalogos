@@ -1,0 +1,74 @@
+10
+
+dir
+18
+http://svn2.xp-dev.com/svn/betapplications/BetaApplications/src
+http://svn2.xp-dev.com/svn/betapplications
+
+
+
+2010-08-09T20:54:11.338883Z
+18
+agustinwisky
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+abcb18f1-f3eb-406e-b444-35113d6c071a
+
+MANIFEST-LOGIN.MF
+file
+
+
+
+
+2010-08-04T13:04:45.000000Z
+836f13bb8e890d8b9eda1aae3bc80149
+2010-06-09T17:21:16.981515Z
+3
+agustinwisky
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+206
+
+aplicacion
+dir
+
+client
+dir
+
+icons
+dir
+
+libs
+dir
+

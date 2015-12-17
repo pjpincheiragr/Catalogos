@@ -1,0 +1,24 @@
+package aplicacion.proveedor.guia.logic;
+
+import aplicacion.modelo.logic.Data;
+
+public class _Data extends Data {
+	
+	
+
+	public String[] cargar_simulacion(String idproveedor){
+		String[] simulacion_base=new String[2];
+		simulacion_base[0]="0-6-1";
+		simulacion_base[1]="0-6-8";
+		
+		return simulacion_base;
+	}
+	
+	public Object[][] getProveedorInformation(String proveedor){
+		String q="select descripcion from ma_cuentas where codigo like '"+proveedor+"'"; 
+		Object[][] results=getResults(q);
+		return results;
+	}
+	
+	
+}

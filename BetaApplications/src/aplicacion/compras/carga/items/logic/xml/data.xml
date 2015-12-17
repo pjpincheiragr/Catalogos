@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+<query id="account_info" text="
+ select M.codigo,
+ M.descripcion,
+isnull(a.telefono,''),
+isnull(a.fax,''),
+isnull(a.mail,''),
+isnull(a.contacto,''),
+isnull(a.localidad,''),
+isnull(a.observaciones,''),
+a.iva, 
+a.numero_documento, 
+a.idcond_cpra_vta, 
+t.descripcion, 
+isnull(a.calle,''),
+isnull(ltrim(a.numero),''),
+isnull(a.piso,''),
+ltrim(a.cpostal), 
+a.provincia,
+st.descripcion,
+tip.descripcion,
+a.documento_tipo,
+isnull(td.descripcion,'')
+FROM MA_CUENTAS M LEFT OUTER JOIN 
+MA_CUENTASADIC  a  
+ON M.CODIGO = a.CODIGO left outer join v_ta_cpra_vta t 
+on a.idcond_cpra_vta = t.idcond_cpra_vta 
+left outer join ta_condiva tip 
+on a.iva=tip.codigo 
+left outer join ta_estados st 
+on a.provincia=st.codigo 
+left outer join ta_tipodocumento td on a.documento_tipo=td.codigo 
+where M.codigo like '?'" >
+</query>
+
+<query id="eliminar_asiento" text="
+declare @numero_asiento int
+declare @mes_operativo int
+select @numero_asiento=[numero asiento],@mes_operativo=mes_operativo 
+from mv_asientos
+where 
+cuenta like '?'
+and tc like '?'
+and sucursal like '?'
+and numero like '?'
+and letra like '?'
+
+delete from mv_asientos 
+where [numero asiento]=@numero_asiento
+and mes_operativo=@mes_operativo
+">
+</query>
+
+<query id="eliminar_asiento_beta" text="
+declare @numero_asiento int
+declare @mes_operativo int
+select @numero_asiento=[numero_asiento],@mes_operativo=mes_operativo 
+from b_mv_asientos
+where 
+cuenta like '?'
+and tc like '?'
+and idcomprobante like '?'
+
+delete from b_mv_asientos 
+where [numero_asiento]=@numero_asiento
+and mes_operativo=@mes_operativo
+">
+</query>
+<query id="imputacion" text="
+select imputacion from 
+ma_cuentas_imputacion 
+where codigo like '?'
+order by secuencia
+">
+</query>
+
+<query id="eliminar_cpte" text="
+delete from c_mv_cpte
+where cuenta = '?'
+and tc = '?'
+and idcomprobante = '?'
+">
+</query>
+
+<query id="b_eliminar_cpte" text="
+delete from b_fcn
+where cuenta = '?'
+and tc = '?'
+and idcomprobante = '?'
+">
+</query>
+
+<query id="asiento_fecha" text="
+select mes_operativo,[numero asiento],convert(varchar(10),fecha,105)
+from mv_asientos
+where cuenta = '?' 
+and tc like '?'
+and sucursal = ?
+and numero = ?
+and letra like '?' 
+">
+</query>
+<query id="cpte_articulos_precios" text="
+select idarticulo,descripcion,costo 
+from c_mv_cpteinsumos
+where cuenta like '?' and tc like '?'   and idcomprobante like '?'
+">
+</query>
+
+<query id="cpte_articulos_preciosBeta" text="
+select idarticulo,descripcion,costo 
+from b_fcn_item
+where cuenta like '?' and tc like '?'   and idcomprobante like '?'
+">
+</query>
+
+
+<query id="asiento_numero" text="
+select mes_operativo,[numero asiento],convert(varchar(10),fecha,105)
+from mv_asientos
+where cuenta like '?' 
+and tc like '?'
+and sucursal like '?'
+and numero like '?'
+and letra like '?' 
+">
+</query>
+
+<query id="asiento_numero_beta" text="
+select mes_operativo,[numero_asiento],convert(varchar(10),fecha,105)
+from b_mv_asientos
+where cuenta like '?' 
+and tc like '?'
+and idcomprobante like '?'
+ 
+">
+</query>
+
+<query id="asiento" text="
+select secuencia,cuenta,importe from mv_asientos
+where mes_operativo=?
+and [numero asiento] = ?
+order by secuencia
+">
+</query>
+
+<query id="b_asiento" text="
+select secuencia,cuenta,importe from b_mv_asientos
+where mes_operativo=?
+and [numero_asiento] = ?
+order by secuencia
+">
+</query>
+<query id="proveedor" text="
+ select M.codigo,
+ M.descripcion,
+isnull(a.calle,'')+' '+isnull(ltrim(a.numero),'')+' '+isnull(a.piso,'') as domicilio, 
+a.iva,
+tip.descripcion,
+a.numero_documento, 
+a.idcond_cpra_vta, 
+t.descripcion, 
+a.requiere_iibb,
+a.requiere_perc_iva,
+a.requiere_perc_gan,
+requiere_neto_ngrav,
+requiere_iva10,
+requiere_iva27,
+imprime_etiq,
+actualiza_precios,
+a.codigoimputacion,
+a.requiere_iva21,
+a.permite_articulos,
+a.requiere_rg3337,
+a.requiere_impuestos_internos,
+a.alicuota_impuestos_internos,
+a.alicuota_ingresos_brutos,
+a.alicuota_percepcion_iva,
+isnull(a.tc,0),
+a.imprime_etiq,
+a.actualiza_precios,
+isnull(a.descuento,0)
+FROM MA_CUENTAS M LEFT OUTER JOIN 
+MA_CUENTASADIC  a  
+ON M.CODIGO = a.CODIGO 
+left outer join v_ta_cpra_vta t 
+on a.idcond_cpra_vta = t.idcond_cpra_vta 
+left outer join ta_condiva tip 
+on a.iva=tip.codigo 
+where M.codigo like '?'" >
+</query>
+<query id="articulo" text="
+select descripcion,precio5 from v_ma_articulos 
+where idarticulo like '?' ">
+</query>
+
+<query id="imputaciones" text="select 
+i.imputacion,c.descripcion,i.alias  
+from ma_cuentas_imputacion i left outer join ma_cuentas c
+on i.imputacion=c.codigo
+where i.codigo = ? order by i.secuencia">
+</query>
+
+<query id="insert_digital" text="
+insert into b_cpte_digital (cuenta,fecha_carga,tc,idcomprobante,fotos,carga_articulos,fecha_carga_articulos,idusuario,ip)
+values ('?',getdate(),'?','?',?,?,'?','?','?')
+">
+</query>
+
+
+
+
+<query id="cpte" text="
+select convert(varchar(10),isnull(c.fecha,''),105),
+convert(varchar(10),isnull(d.fecha_carga,''),105),
+c.importe_s_iva,
+c.importe,
+d.fotos,
+d.carga_articulos,
+c.idvendedor 
+from c_mv_cpte c
+left outer join b_cpte_digital d 
+on 
+c.cuenta=d.cuenta and c.tc=d.tc and c.idcomprobante=d.idcomprobante 
+where 
+c.cuenta like '?'
+and c.tc like '?'
+and c.idcomprobante like '?'
+" >
+</query>
+
+
+<query id="cpteBeta" text="
+select convert(varchar(10),isnull(c.fecha_comprobante,''),105),
+convert(varchar(10),isnull(d.fecha_carga,''),105),
+c.subtotal,
+c.total_cpte,
+d.fotos,
+d.carga_articulos,
+c.idvendedor,
+c.comprobante_asociado 
+from b_fcn c
+left outer join b_cpte_digital d 
+on 
+c.cuenta=d.cuenta and c.tc=d.tc and c.idcomprobante=d.idcomprobante 
+where 
+c.cuenta like '?'
+and c.tc like '?'
+and c.idcomprobante like '?'
+" >
+</query>
+
+<query id="fotos" text="
+select fotos
+from b_cpte_digital 
+where 
+cuenta like '?'
+and tc like '?'
+and idcomprobante like '?'
+
+">
+</query>
+<query id="lineas" text="
+SELECT DESCRIPABREV FROM V_MA_ARTICULOS 
+WHERE CUENTAPROVEEDOR LIKE '?' 
+AND DESCRIPABREV NOT LIKE '' 
+GROUP BY DESCRIPABREV 
+ORDER BY DESCRIPABREV 
+">
+
+</query>
+
+<query id="prefijo" text="
+SELECT top 1 substring(idarticulo,0,5) FROM V_MA_ARTICULOS 
+		WHERE CUENTAPROVEEDOR LIKE '?' 
+		AND DESCRIPABREV NOT LIKE '' 
+		and DEscripabrev like '?'  
+">
+</query>
+
+
+
+<query id="insert_stock" text="
+
+ insert into v_mv_stock  (cuentaproveedor,tc,idcomprobante,
+secuencia,fecha,idarticulo,descripcion,
+idunidad,cantidadud,cantidad,costo,precioventa,
+stock,iddeposito,unegocio,tc_origen,idcomprobante_origen) 
+             values  
+            (@cuenta,@tc, @idcomprobante,@secuencia , @fecha ,
+@idarticulo , @descripcion ,@idunidad ,@cantidad , @cantidad ,
+ @costo , @precioventa , @stock,@iddeposito,@unegocio,@tc_origen,@idcomprobante_origen)
+" >
+</query>
+
+<query id="insert_cpte" 
+
+text="
+
+insert into c_mv_cpteinsumos 
+(tc,idcomprobante,cuenta,idarticulo,descripcion,cantidadud,cantidad,
+ costo,importe,importe_s_iva,impuestos,total,
+ costoold,aliciva,idunidadbase,equiv_udbase,precio_lista,desc1) 
+ values (
+@tc,@idcomprobante,@cuenta,@idarticulo,@descripcion,@cantidad,@cantidad,
+@costo,@importe,@importe_s_iva,@impuestos,@total,	
+@costo,@iva,@idunidadbase,@equiv_udbase,@precio_lista,@descuento)
+">
+
+</query>
+
+<query id="insert_cpteBeta" 
+
+text="
+
+insert into b_fcn_item
+(tc,idcomprobante,idarticulo,descripcion,cantidad,
+ costo,total,cuenta,desc_imp,sec) 
+ values (
+@tc,@idcomprobante,@idarticulo,@descripcion,@cantidad,
+@costo,@total,@cuenta,@descuento,@secuencia)
+">
+
+</query>
+<query id="insert_encabezado" text="
+ declare @tc as varchar(4) 
+ declare @idcomprobante as varchar(13) 
+ declare @fecha as varchar(10)
+ declare @cuenta as varchar(9)
+ 
+ declare @secuencia as integer 
+ declare @idarticulo as varchar(100) 
+ declare @descripcion as varchar(200) 
+ declare @cantidad as money 
+ declare @costo as money 
+ declare @precioventa as money 
+ declare @stock as money 
+ declare @iddeposito as nvarchar(4) 
+ declare @unegocio as nvarchar(4) 
+ declare @idunidad as nvarchar(4) 
+ declare @importe money 
+ declare @importe_s_iva money 
+ declare @impuestos money 
+ declare @total money 
+ declare @iva money 
+ declare @idunidadbase varchar(4) 
+ declare @equiv_udbase varchar(200) 
+ declare @precio_lista money 
+ declare @descuento money 
+ declare @tc_origen as nvarchar(4)
+ declare @idcomprobante_origen as nvarchar(13)
+ 
+set @idunidad='   1' 
+set @unegocio='   1' 
+set @iddeposito='   1' 
+set @fecha='?' 
+set @cuenta='?' 
+set @tc='?' 
+set @idcomprobante='?' 
+set @impuestos=0.0 
+set @iva=0.21 
+set @idunidadbase='   1' 
+set @equiv_udbase='   1' 
+
+">
+</query>
+
+<query id="insert_sets" text="
+set @secuencia=? 
+set @idarticulo='?' 
+set @descripcion='?' 
+set @cantidad=? 
+set @costo=? 
+set @precioventa=?   
+set @descuento=? 
+set @importe=@costo
+set @importe_s_iva=@costo
+set @precio_lista=@costo
+set @total=? 
+set @tc_origen='?'
+set @idcomprobante_origen='?'
+
+">
+</query>
+<query id="stock" text="
+select a.idarticulo,a.descripcion,sum(isnull(s.cantidadud,0))
+from v_ma_articulos a
+left outer join v_mv_stock s
+on a.idarticulo=s.idarticulo
+where a.idarticulo like '?'
+group by a.idarticulo,a.descripcion
+">
+</query>
+
+
+
+<query id="cpte_articulos" text="
+select c.idarticulo,rtrim(isnull(c.descripcion,'')),c.cantidad,c.costo ,c.total,isnull(c.desc1,0.0),isnull(s.tc_origen,''),isnull(s.idcomprobante_origen,'')
+from c_mv_cpteinsumos c
+left outer join v_mv_stock s
+on c.cuenta=s.cuentaproveedor and c.tc=s.tc and c.idcomprobante=s.idcomprobante
+and c.idarticulo=s.idarticulo
+and (c.secuencia=s.secuencia+1) 
+where c.cuenta like '?'
+and c.tc like '?'
+and c.idcomprobante like '?'
+order by c.secuencia
+">
+</query>
+
+<query id="cpte_articulosBeta" text="
+select idarticulo,descripcion,cantidad,costo ,total,isnull(desc_porc,0.0),'','' 
+from b_fcn_item
+where cuenta like '?'
+and tc like '?'
+and idcomprobante like '?'
+order by sec
+">
+</query>
+
+<query id="eliminar_cpteinsumos" text="
+delete from c_mv_cpteinsumos
+where cuenta = '?'
+and tc = '?'
+and idcomprobante = '?'
+">
+</query>
+
+<query id="eliminar_cpteinsumosBeta" text="
+delete from b_fcn_item
+where cuenta = '?'
+and tc = '?'
+and idcomprobante = '?'
+">
+</query>
+
+<query id="eliminar_stock" text="
+delete from v_mv_stock
+where cuentaproveedor = '?'
+and tc = '?'
+and idcomprobante = '?'
+">
+</query>
+
+<query id="unblock" text="
+alter table c_mv_cpte nocheck constraint all
+alter table c_mv_cpteinsumos nocheck constraint all  
+" >
+</query>
+
+<query id="block" text="
+alter table c_mv_cpte check constraint all
+alter table c_mv_cpteinsumos check constraint all
+" >
+</query>
+<query id="insert" text="
+declare @domicilio as nvarchar(200)
+declare @nombre as nvarchar(200)
+declare @claseprecio as nvarchar(4)
+declare @telefono as nvarchar(100)
+declare @localidad as nvarchar(100)
+declare @idprovincia as nvarchar(4)
+declare @codigopostal as nvarchar(10)
+declare @documentotipo as nvarchar(100)
+declare @documentonumero as nvarchar(100)
+declare @condicioniva as nvarchar(100)
+declare @idcond_cpra_vta as nvarchar(100)
+declare @idmotivocpravta as nvarchar(100)
+declare @cuenta as nvarchar(9)
+declare @tc as nvarchar(4)
+declare @idcomprobante as nvarchar(13)
+declare @fecha as nvarchar(10)
+declare @fechasubdiario as nvarchar(10)
+declare @vencimiento as nvarchar(10)
+declare @importe as money
+declare @liva_exento as money
+declare @liva_aliciva as money
+declare @liva_aliciva2 as money
+declare @liva_aliciva3 as money
+
+declare @importe_s_iva as money
+declare @importeiva as money
+declare @importeinsumos as money
+declare @importeservicios as money
+declare @importeotrosconceptos as money
+declare @importeimpuestosinternos as money
+declare @netogravado as money
+declare @netonogravado as money
+declare @sucursal as nvarchar(4)
+declare @numero as nvarchar(8)
+declare @letra as nvarchar(1)
+declare @iddeposito as nvarchar(4)
+declare @unegocio as nvarchar(4)
+declare @idvendedor as nvarchar(4)
+set @cuenta='?'
+set @tc='?'
+set @idcomprobante='?'
+set @fecha='?'
+set @fechasubdiario='?'
+set @vencimiento='?'
+set @importe=?
+set @importe_s_iva=?
+set @importeinsumos=?
+set @importeservicios=0.0
+set @importeotrosconceptos=0.0
+set @importeiva=?
+set @importeimpuestosinternos=0.0
+set @netogravado=?
+set @netonogravado=0.0
+set @claseprecio='5'
+set @sucursal='?'
+set @numero='?'
+set @letra='?'
+set @iddeposito='   1'
+set @unegocio='   1'
+set @liva_exento=0
+set @liva_aliciva=21
+set @liva_aliciva2=0
+set @liva_aliciva3=0
+set @idvendedor='?'
+select 
+@nombre=descripcion,
+@domicilio=calle+numero,
+@telefono=telefono,
+@localidad=localidad,
+@idprovincia=provincia ,
+@codigopostal=cpostal,
+@documentotipo=documento_tipo,
+@documentonumero=rtrim(ltrim(numero_documento)),
+@condicioniva=iva,
+@idcond_cpra_vta=idcond_cpra_vta,
+@idmotivocpravta=idmotivocpra
+from ma_cuentas c left outer join ma_cuentasadic a
+on c.codigo=a.codigo
+where c.codigo=@cuenta
+insert into c_mv_cpte 
+(tc,idcomprobante,cuenta,fecha,vencimiento,nombre,domicilio,
+telefono,localidad,idprovincia,codigopostal,documentotipo,
+documentonumero,condicioniva,idcond_cpra_vta,
+importe,importe_s_iva,
+idmotivocpravta,importeinsumos,importeservicios,importeotrosconceptos,
+importeiva,
+importeimpuestosinternos,
+netogravado,netonogravado,
+claseprecio,fechasubdiario,
+sucursal,numero,letra,iddeposito,unegocio,
+aliciva,
+aliciva2,
+idvendedor
+)
+values (
+@tc,@idcomprobante,@cuenta,@fecha,@vencimiento,@nombre,@domicilio,
+@telefono,@localidad,@idprovincia,@codigopostal,@documentotipo,
+@documentonumero,@condicioniva,@idcond_cpra_vta,
+@importe,@importe_s_iva,@idmotivocpravta,@importeinsumos,@importeservicios,@importeotrosconceptos,
+@importeiva,
+@importeimpuestosinternos,
+@netogravado,@netonogravado,
+@claseprecio,@fechasubdiario,
+@sucursal,@numero,@letra,@iddeposito,@unegocio,
+@liva_aliciva,
+@liva_aliciva2,
+@idvendedor
+)
+
+
+
+">
+</query>
+
+<query id="imputaciones" text="select 
+i.imputacion,c.descripcion,i.alias  
+from ma_cuentas_imputacion i left outer join ma_cuentas c
+on i.imputacion=c.codigo
+where i.codigo = ? order by i.secuencia">
+</query>
+
+<query id="insertBeta" text="
+declare @domicilio as nvarchar(200)
+declare @nombre as nvarchar(200)
+declare @claseprecio as nvarchar(4)
+declare @telefono as nvarchar(100)
+declare @localidad as nvarchar(100)
+declare @idprovincia as nvarchar(4)
+declare @codigopostal as nvarchar(10)
+declare @documentotipo as nvarchar(100)
+declare @documentonumero as nvarchar(100)
+declare @condicioniva as nvarchar(100)
+declare @idcond_cpra_vta as nvarchar(100)
+declare @idmotivocpravta as nvarchar(100)
+declare @cuenta as nvarchar(9)
+declare @tc as nvarchar(6)
+declare @idcomprobante as nvarchar(13)
+declare @fecha as nvarchar(10)
+declare @fechasubdiario as nvarchar(10)
+declare @vencimiento as nvarchar(10)
+declare @importe as money
+declare @liva_exento as money
+declare @liva_aliciva as money
+declare @liva_aliciva2 as money
+declare @liva_aliciva3 as money
+
+declare @importe_s_iva as money
+declare @importeiva as money
+declare @importeinsumos as money
+declare @importeservicios as money
+declare @importeotrosconceptos as money
+declare @importeimpuestosinternos as money
+declare @netogravado as money
+declare @netonogravado as money
+declare @sucursal as nvarchar(4)
+declare @numero as nvarchar(8)
+declare @letra as nvarchar(1)
+declare @iddeposito as nvarchar(4)
+declare @unegocio as nvarchar(4)
+declare @idvendedor as nvarchar(4)
+declare @idcomprobante_asociado as nvarchar(13)
+set @cuenta='?'
+set @tc='?'
+set @idcomprobante='?'
+set @fecha='?'
+set @fechasubdiario='?'
+set @vencimiento='?'
+set @importe=?
+set @importe_s_iva=?
+set @importeinsumos=?
+set @importeservicios=0.0
+set @importeotrosconceptos=0.0
+set @importeiva=?
+set @importeimpuestosinternos=0.0
+set @netogravado=?
+set @netonogravado=0.0
+set @claseprecio='5'
+set @sucursal='?'
+set @numero='?'
+set @letra='?'
+set @idvendedor='?'
+set @iddeposito='   1'
+set @unegocio='   1'
+set @liva_exento=0
+set @liva_aliciva=21
+set @liva_aliciva2=0
+set @liva_aliciva3=0
+set @idcomprobante_asociado='?'
+select 
+@nombre=descripcion,
+@domicilio=calle+numero,
+@telefono=telefono,
+@localidad=localidad,
+@idprovincia=provincia ,
+@codigopostal=cpostal,
+@documentotipo=documento_tipo,
+@documentonumero=rtrim(ltrim(numero_documento)),
+@condicioniva=iva,
+@idcond_cpra_vta=idcond_cpra_vta,
+@idmotivocpravta=idmotivocpra
+from ma_cuentas c left outer join ma_cuentasadic a
+on c.codigo=a.codigo
+where c.codigo=@cuenta
+insert into b_fcn 
+(tc,idcomprobante,fecha_carga,idusuario,ultima_modificacion,fecha_comprobante,
+cuenta,cuenta_descripcion,observacion,articulos,subtotal,desc_porc,desc_imp,total_cpte,
+pagada,anulada,idvendedor,comprobante_asociado
+)
+values (
+@tc,@idcomprobante,getdate(),'',getdate(),@fecha,@cuenta,
+@nombre,@domicilio,0,@importe_s_iva,0.0,0.0,@importe,0,0,@idvendedor,@idcomprobante_asociado
+)
+
+
+
+">
+</query>
+
+<query id="existe_cpte" text="
+select idcomprobante
+from c_mv_cpte
+where cuenta like '?'
+and tc like '?'
+and idcomprobante like '?'
+">
+</query>
+
+<query id="eliminar_digital" text="
+delete from b_cpte_digital
+where cuenta = '?'
+and tc = '?'
+and idcomprobante = '?'
+">
+</query>
+
+
+
+
+<query id="existe_digital" text="
+delete from b_cpte_digital
+where cuenta = '?'
+and tc = '?'
+and idcomprobante = '?'
+">
+</query>
+
+</queries>

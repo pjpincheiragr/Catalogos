@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+<query id="iva_compras" text="
+
+">
+</query>
+
+<query id="proveedor" text="
+ select M.codigo,
+ M.descripcion,
+isnull(a.calle,'')+' '+isnull(ltrim(a.numero),'')+' '+isnull(a.piso,'') as domicilio, 
+a.iva,
+tip.descripcion,
+a.numero_documento, 
+a.idcond_cpra_vta, 
+t.descripcion, 
+a.requiere_iibb,
+a.requiere_perc_iva,
+a.requiere_perc_gan,
+requiere_neto_ngrav,
+requiere_iva10,
+requiere_iva27,
+imprime_etiq,
+actualiza_precios,
+a.codigoimputacion,
+a.requiere_iva21,
+a.permite_articulos,
+a.requiere_rg3337,
+a.requiere_impuestos_internos,
+a.alicuota_impuestos_internos,
+a.alicuota_ingresos_brutos,
+a.alicuota_percepcion_iva,
+isnull(a.tc,0)
+FROM MA_CUENTAS M LEFT OUTER JOIN 
+MA_CUENTASADIC  a  
+ON M.CODIGO = a.CODIGO 
+left outer join v_ta_cpra_vta t 
+on a.idcond_cpra_vta = t.idcond_cpra_vta 
+left outer join ta_condiva tip 
+on a.iva=tip.codigo 
+where M.codigo like '?'" >
+</query>
+
+<query id="fotos" text="
+select fotos
+from b_cpte_digital 
+where 
+cuenta like '?'
+and tc like '?'
+and idcomprobante like '?'
+
+">
+</query>
+<query id="asiento_numero" text="
+select mes_operativo,[numero asiento],convert(varchar(10),fecha,105)
+from mv_asientos
+where cuenta like '?' 
+and tc like '?'
+and sucursal like '?'
+and numero like '?'
+and letra like '?' 
+">
+</query>
+<query id="asiento" text="
+select secuencia,cuenta,importe from mv_asientos
+where mes_operativo=?
+and [numero asiento] = ?
+order by secuencia
+">
+</query>
+<query id="imputacion" text="
+select a.cuenta,m.descripcion 
+from mv_asientos a left outer join ma_cuentas m
+on a.cuenta=m.codigo
+where a.mes_operativo=?
+and [numero asiento] like '?'
+and a.secuencia =1
+
+">
+</query>
+
+<update id="control" text="
+update b_cpte_digital set fecha_control=?
+where cuenta like '?' and tc like '?' and idcomprobante like '?'
+">
+</update>
+
+<query id="cpte" text="
+select convert(varchar(10),isnull(c.fecha,''),105),
+convert(varchar(10),isnull(d.fecha_carga,''),105),
+c.importe_s_iva,
+c.importe,
+d.fotos 
+from c_mv_cpte c
+left outer join b_cpte_digital d 
+on 
+c.cuenta=d.cuenta and c.tc=d.tc and c.idcomprobante=d.idcomprobante 
+where 
+c.cuenta like '?'
+and c.tc like '?'
+and c.idcomprobante like '?'
+" >
+</query>
+<query id="controles" text="
+select count(*) as cargas ,isnull(sum((case when d.fecha_control is null then 0 else 1 end)),0) as controles  
+from c_mv_cpte c 
+left outer join b_cpte_digital  d
+on c.cuenta=d.cuenta and c.tc=d.tc and c.idcomprobante=d.idcomprobante
+left outer join mv_asientos a on c.tc=a.tc and c.sucursal=a.sucursal  and c.numero=a.numero and c.cuenta=a.cuenta 
+where d.fecha_carga between '?' and '?' and c.cuenta like '%?%'
+and a.fecha between '?' and '?'
+">
+</query>
+</queries>

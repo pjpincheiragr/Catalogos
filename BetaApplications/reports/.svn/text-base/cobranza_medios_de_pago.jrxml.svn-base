@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pdc_preparar" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<style name="Title" isDefault="false" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" isDefault="false" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" isDefault="false" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" isDefault="false" fontName="Arial" fontSize="12"/>
+	<parameter name="tc" class="java.lang.String">
+		<defaultValueExpression><![CDATA["CBCT"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idcomprobante" class="java.lang.String">
+		<defaultValueExpression><![CDATA["00000071"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cuenta" class="java.lang.String">
+		<defaultValueExpression><![CDATA["112010105"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select a.cuenta as "a.cuenta",c.descripcion,
+(case when a.cuenta like '111010002' then 
+(a.cht_idbanco+' '+
+a.cht_serie+'-'+
+a.cht_numero+' '+
+convert(varchar(10),a.cht_vencimiento,105))
+ else '' end ) as "detalle",
+(case when debe_haber like 'D' then importe else -importe end) as importe
+from b_mv_asientos a
+left outer join ma_cuentas c
+on a.cuenta=c.codigo
+where a.tc like $P{tc}
+and a.idcomprobante like $P{idcomprobante}
+and a.cuenta not like $P{cuenta}]]>
+	</queryString>
+	<field name="a.cuenta" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="detalle" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="importe" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="suma" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{importe}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="16" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Medios]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="128" height="16"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="480" y="0" width="50" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{importe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="49" y="0" width="186" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{detalle}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="15" width="555" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="17">
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="480" y="0" width="50" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{suma}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="436" y="0" width="44" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Total $]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

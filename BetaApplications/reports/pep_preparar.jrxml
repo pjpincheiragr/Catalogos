@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pdc_preparar" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<style name="Title" isDefault="false" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" isDefault="false" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" isDefault="false" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" isDefault="false" fontName="Arial" fontSize="12"/>
+	<parameter name="idpedido" class="java.lang.String">
+		<defaultValueExpression><![CDATA[00000004]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     b_PEP."IdPedido" AS b_PEP_IdPedido,
+     b_PEP."Descripcion" AS b_PEP_Descripcion,
+     b_PEP."Fecha_Creacion" AS b_PEP_Fecha_Creacion,
+     b_PEP."cliente" AS b_PEP_cliente,
+     b_PEP."cliente_descripcion" AS b_PEP_cliente_descripcion,
+     b_PEP_Item."Descripcion" AS b_PEP_Item_Descripcion,
+     b_PEP_Item."cantidad" AS b_PEP_Item_cantidad,
+     b_PEP_Item."idarticulo" AS b_PEP_Item_idarticulo,
+     isnull(V_MA_ARTICULOS."DescripAbrev",'') AS V_MA_ARTICULOS_DescripAbrev,
+     (case when isnull(idpedido_pdc,'') like '' then 'STOCK' else isnull(idpedido_pdc,'') end) AS b_PEP_Item_idpedido_edit
+FROM
+     "dbo"."b_PEP_Item" b_PEP_Item INNER JOIN "dbo"."b_PEP" b_PEP ON b_PEP_Item."idpedido" = b_PEP."IdPedido"
+     INNER JOIN "dbo"."V_MA_ARTICULOS" V_MA_ARTICULOS ON b_PEP_Item."idarticulo" = V_MA_ARTICULOS."IDARTICULO"
+where b_PEP."IdPedido" like $P{idpedido}
+and      b_PEP_Item."seleccionado" = 1]]>
+	</queryString>
+	<field name="b_PEP_IdPedido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PEP_Descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PEP_Fecha_Creacion" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PEP_cliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PEP_cliente_descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PEP_Item_Descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PEP_Item_cantidad" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PEP_Item_idarticulo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="V_MA_ARTICULOS_DescripAbrev" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PEP_Item_idpedido_edit" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="86" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="176" height="33"/>
+				<textElement verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[CLASIFICAR PEDIDO]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="243" y="13" width="103" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{b_PEP_IdPedido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="243" y="31" width="270" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{b_PEP_Descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="73" y="56" width="103" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{b_PEP_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="176" y="56" width="295" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{b_PEP_cliente_descripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="197" y="13" width="46" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[numero:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="56" width="57" height="15"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[proveedor:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="54" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="71" width="555" height="1"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="25" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="124" y="10" width="154" height="15"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="279" y="11" width="49" height="15"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="10" width="124" height="15"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[articulo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="328" y="11" width="124" height="15"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[linea]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="452" y="12" width="101" height="14"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[pedido cliente]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="30" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="124" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{b_PEP_Item_idarticulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="278" y="1" width="45" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{b_PEP_Item_cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="124" y="0" width="154" height="15"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{b_PEP_Item_Descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="122" height="16"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{V_MA_ARTICULOS_DescripAbrev}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="452" y="1" width="101" height="30"/>
+				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
+					<jr:codeExpression><![CDATA[$F{b_PEP_Item_idpedido_edit}]]></jr:codeExpression>
+				</jr:Code39>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="179" y="16" width="64" height="18"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Clasifico:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="243" y="33" width="162" height="1"/>
+			</line>
+			<componentElement>
+				<reportElement x="0" y="4" width="176" height="41"/>
+				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
+					<jr:codeExpression><![CDATA[$F{b_PEP_IdPedido}]]></jr:codeExpression>
+				</jr:Code39>
+			</componentElement>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Pag "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

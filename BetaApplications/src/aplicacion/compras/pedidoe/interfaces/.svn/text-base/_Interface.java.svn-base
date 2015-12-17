@@ -1,0 +1,107 @@
+package aplicacion.compras.pedidoe.interfaces;
+
+public interface _Interface {
+	public String _btn_salir="_btn_salir";
+	public String _btn_error="_btn_error";
+	public String _btn_nuevo="_btn_nuevo";
+	
+	public String _btn_eliminar_remito="_btn_eliminar_remito";
+	public String _btn_play="_btn_play";
+	public String _btn_cancelar="_btn_cancelar";
+	public String _btn_guardar="_btn_guardar";
+	public String _btn_presupuesto="_btn_presupuesto";
+	public String _btn_catalogo="_btn_catalogo";
+	public String _btn_imprimir_identificador="_btn_imprimir_identificador";
+	public String _btn_buscar_fecha="_btn_buscar_fecha";
+	public String _btn_buscar_cliente="_btn_buscar_cliente";
+	public String _btn_cargar_cliente="_btn_cargar_cliente";
+	public String _btn_editar_cliente="_btn_editar_cliente";
+	public String _btn_editar_transporte="_btn_editar_transporte";
+	public String _btn_buscar_transporte="_btn_buscar_transporte";
+	public String _btn_buscar_pedido="_btn_buscar_pedido";
+	public String _btn_cargar_pedido="_btn_cargar_pedido";
+	public String _btn_buscar_vendedor="_btn_buscar_vendedor";
+	public String _btn_preparar_pedido="_btn_preparar_pedido";
+	public String _btn_enviar_email="_btn_enviar_email";
+	public String _btn_mostrar_email="_btn_mostrar_email";
+	public String _btn_envio="_btn_envio";
+	public String _btn_eliminar="_btn_eliminar";
+	public String _btn_importar="_btn_importar";
+	public String _btn_importar_critico="_btn_importar_critico";
+	public String _btn_importar_faltantes="_btn_importar_faltantes";
+	public String _btn_buscar_fecha_envio="_btn_buscar_fecha_envio";
+	
+	
+	public String _txt_fecha="_txt_fecha";
+	public String _txt_linea_critico="_txt_linea_critico";
+	public String _txt_linea_faltantes="_txt_linea_faltantes";
+	public String _txt_idtransporte="_txt_idtransporte";
+	public String _txt_idpedido="_txt_idpedido";
+	public String _txt_pedido_descripcion="_txt_pedido_descripcion";
+	public String _txt_idcliente="_txt_idcliente";
+	public String _txt_cliente_descripcion="_txt_cliente_descripcion";
+	public String _txt_idvendedor="_txt_idvendedor";
+	public String _txt_informacion="_txt_informacion"; 
+	public String _txt_fecha_envio="_txt_fecha_envio";
+	public String _txt_guia="_txt_guia";
+	public String _txt_cpostal="_txt_cpostal";
+	public String _txt_idprovincia="_txt_idprovincia";
+	public String _txt_idciudad="_txt_idciudad";
+	public String _txt_domicilio="_txt_domicilio";
+	public String _txt_telefono="_txt_telefono";
+	public String _table_remitos="_table_remitos";
+	public String _table_faltantes="_table_faltantes";
+	public String _table_critico="_table_critico";
+	public String _table_pdc_articulos="_table_pdc_articulos";
+	
+	public String _table_items="_table_items";
+	public String _table_equivalencia="_table_equivalencia";
+	public String _table_equivalencia_critico="_table_equivalencia_critico";
+	public String _table_equivalencia_faltantes="_table_equivalencia_faltantes";
+	public String _table_items_seleccionar="_table_items_seleccionar";
+	public String _table_items_idarticulo="11";
+	public String _table_items_descripcion="12";
+	public String _table_items_cantidad="13";
+	public String _table_items_precio="_table_items_precio";
+	public String _table_items_costo="_table_items_costo";
+	public String _table_items_descuento="_table_items_descuento";
+	public String _table_items_total="_table_items_total";
+	public String _table_items_pedido="_table_items_pedido";
+	
+	public String _table_idarticulo="_table_idarticulo";
+	public String _table_items_minimo="_table_items_minimo";
+	//public String _table_items_critico="_table_items_critico";
+	public String _table_critico_pedir="_table_critico_pedir";
+	public String _table_faltante_pedir="_table_faltante_pedir";
+	
+	public String _chk_seleccionar="_chk_seleccionar";
+	public String _chk_seleccionar_criticos="_chk_seleccionar_criticos";
+	public String _chk_seleccionar_faltantes="_chk_seleccionar_faltantes";
+	public String _chk_sobrescribir="_chk_sobrescribir";
+	public String _chk_costo="_chk_costo";
+	
+	public String _table_etiquetas="31";
+	public String _chk_seleccionar_etiquetas="32";
+	public String _table_etiquetas_seleccion="33";
+	public String _table_etiquetas_cantidad="34";
+	public String _btn_imprimir_etiquetas="30";
+	public String _table_remitos_idpedido="_table_remitos_idpedido";
+	
+	public String _btn_cargar_critico="_btn_cargar_critico";
+	public String _btn_cargar_faltantes="_btn_cargar_faltantes";
+	public String _lst_estado="";
+	public String _btn_editar_pedido_cliente="_btn_editar_pedido_cliente";
+	public String _chk_seleccionar_critico_item="_chk_seleccionar_critico_item";
+	public String _chk_seleccionar_faltante_item="_chk_seleccionar_faltante_item";
+	public String _btn_eliminar_faltantes="_btn_eliminar_faltantes";
+	public String _frame="_frame";
+	public String _email="_email";
+	public String _btn_close_email="_btn_close_email";
+	public String _lst_stock="_lst_stock";
+	public String _lst_faltantes="_lst_faltantes";
+	public String _lst_categoria_faltantes="_lst_stock";
+	public String _lst_categoria="_lst_categoria";
+	public String _chk_proveedor_critico="_chk_proveedor_critico";
+	public String _chk_mostrar_faltantes_proveedor="_chk_mostrar_faltantes_proveedor";
+	public String _chk_mostrar_eliminados="_chk_mostrar_eliminados";
+}

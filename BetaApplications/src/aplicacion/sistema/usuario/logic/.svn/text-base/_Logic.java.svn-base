@@ -1,0 +1,338 @@
+package aplicacion.sistema.usuario.logic;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.io.File;
+import java.util.Date;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+import javax.swing.JRootPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JToolBar;
+import javax.swing.JTree;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.table.*;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.JTextField;
+
+
+
+
+import aplicacion.herramientas.java.sortableselector.logic.Filtro;
+import aplicacion.herramientas.java.sortableselector.logic.columna;
+import aplicacion.herramientas.java.table.CellEditor;
+import aplicacion.herramientas.java.table.CheckBoxCellEditor;
+import aplicacion.herramientas.java.table.Column;
+import aplicacion.herramientas.java.table.CustomTable;
+import aplicacion.modelo.interfaces._parametros;
+import aplicacion.modelo.logic.Data;
+import aplicacion.modelo.logic.Logic;
+import aplicacion.sistema.usuario.gui._Frame;
+import aplicacion.sistema.usuario.interfaces.*;
+import aplicacion.sistema.usuario.logic._Data;
+import aplicacion.herramientas.java.xml.Element;
+import aplicacion.herramientas.java.xml.Atributo;
+import aplicacion.herramientas.java.xml.XML;
+public class _Logic extends Logic {
+	private _Frame frame;
+	private _Data data;
+	private aplicacion.herramientas.java.visualselector.constructor._Constructor vSelector = null;
+	private aplicacion.sistema.autorizacion.constructor._Constructor aplicaciones = null;
+	public void setFrame(JFrame _frame){
+		this.frame=(_Frame)_frame;
+		super.setFrame(_frame);
+	}
+	
+	public void setData(Data _data){
+		this.data=(_Data)_data;
+		super.setData(_data);
+	}
+	
+	public void guardar(){
+		boolean error=false;
+		String iduser=frame.get_txt_idusuario().getText();
+		String nombre=frame.get_txt_nombre().getText();
+		String pass=frame.get_txt_password().getText();
+		String superusuario="0";
+		if (frame.get_chk_super().isSelected()){
+			superusuario="1";
+		}
+		String monitor="0";
+		if (frame.get_chk_monitor().isSelected()){
+			monitor="1";
+		}
+		String internet="0";
+		if (frame.get_chk_internet().isSelected()){
+			internet="1";
+		}
+		String asterisk="0";
+		if (frame.get_chk_asterisk().isSelected()){
+			asterisk="1";
+		}
+		String background="";
+		String idvendedor=frame.get_txt_idvendedor().getText();
+		if (data.check_user(iduser)){
+			error=data.update(iduser, nombre, pass,background,superusuario,monitor,internet,idvendedor,asterisk);
+		}else{
+			error=data.insert(iduser, nombre, pass,background,superusuario,monitor,internet,idvendedor,asterisk);
+		}
+		if (!error){
+			aviso("Se Grabo Correctamente");
+		}else{
+			error("Error Grabando Usuario");
+		}
+	}
+	
+	public void aplicaciones(){
+		if (aplicaciones!=null){
+			aplicaciones.dispose();
+		}
+		String iduser=frame.get_txt_idusuario().getText();
+		if (data.check_user(iduser)){
+			aplicaciones = new aplicacion.sistema.autorizacion.constructor._Constructor();
+			aplicaciones.setParameter(_parametros.connector, this.getConstructor().getConnectionHandler());
+			aplicaciones.setParameter(aplicacion.sistema.autorizacion.interfaces._parametros._iduser, iduser);
+			aplicaciones.build(this.getConstructor());
+			aplicaciones.init();	
+		}else{
+			error("debe cargar un usuario valido");
+		}
+	}
+	
+	public void delete(){
+		String id=frame.get_txt_idusuario().getText();
+		if (preguntar("Confirmar","Desea eliminar el usuario "+id+"?")){
+			data.delete(id);
+			data.delete_aplicaciones(id);
+			clean();
+		}
+	}
+	
+	
+	public void clean(){
+		frame.get_txt_idusuario().setText("");
+		frame.get_txt_nombre().setText("");
+		frame.get_txt_password().setText("");
+		frame.get_txt_idusuario().setEnabled(true);
+		frame.get_btn_buscar_usuario().setEnabled(true);
+		frame.get_txt_idvendedor().setText("");
+		frame.get_txt_vendedor_descripcion().setText("");
+		frame.get_chk_internet().setSelected(false);
+		frame.get_chk_monitor().setSelected(false);
+		frame.get_chk_super().setSelected(false);
+		frame.get_chk_asterisk().setSelected(false);
+		frame.setJTable(null);
+	}
+	
+	
+	public void cargar_parametros(){
+		String iduser=frame.get_txt_idusuario().getText();
+		this.cargar_parametros(iduser);
+		this.cargarCajas(iduser);
+	}
+	
+	public void cargar_parametros(String val){
+		Object[][] results=data.getParametroSqlite(val);
+		if (results!=null){
+			if (results.length>0){
+				String iduser=(String) results[0][0];
+				String nombre=(String) results[0][1];
+				String pass=(String) results[0][2];
+				String background=(String) results[0][3];
+				String superusuario=(String) results[0][4];
+				String monitor=(String) results[0][5];
+				String internet=(String) results[0][6];
+				String idvendedor=(String) results[0][7];
+				String asterisk=(String) results[0][8];
+				frame.get_chk_super().setSelected(superusuario.compareTo("1")==0);
+				frame.get_chk_monitor().setSelected(monitor.compareTo("1")==0);
+				frame.get_chk_internet().setSelected(internet.compareTo("1")==0);
+				frame.get_chk_asterisk().setSelected(asterisk.compareTo("1")==0);
+				frame.get_txt_nombre().setText(nombre);
+				frame.get_txt_password().setText(pass);
+				
+				frame.get_txt_idusuario().setEnabled(false);
+				frame.get_btn_buscar_usuario().setEnabled(false);
+				frame.get_txt_idvendedor().setText(idvendedor);
+				if (idvendedor.compareTo("")!=0){
+					this.evaluarVendedor(frame.get_txt_idvendedor());	
+				}
+				
+				this.cargarCajas(iduser);
+			}
+		}
+	}
+	
+
+	private aplicacion.herramientas.java.evaluadores.Vendedor Vendedor=null;
+	public void initialize_Vendedor(){
+		Vendedor=new aplicacion.herramientas.java.evaluadores.Vendedor(){
+			public void cargar(String codigo){
+				Object[][] results=this.getInfo(codigo);
+				String descripcion=(String) results[0][1];
+				String cod=(String) results[0][0];
+				frame.get_txt_idvendedor().setText(cod);
+				frame.get_txt_vendedor_descripcion().setText(descripcion);
+				frame.get_txt_idusuario().requestFocusInWindow();
+			}
+		};
+		Vendedor.setConstructor(this.getConstructor());
+	}
+	
+	public void reconnect_Vendedor(){
+		if (Vendedor!=null){
+			Vendedor.setConstructor(this.getConstructor());	
+		}
+	}
+	public void BuscarVendedor(JTextField tx){
+		Vendedor.Buscar(tx);
+	}
+	public void BuscarVendedor(){
+		Vendedor.Buscar(frame.get_txt_idvendedor());
+	}
+	public void buscarVendedor(JTextField tx){
+		Vendedor.buscar(tx);
+	}
+	
+	public void evaluarVendedor(JTextField tx){
+		tx.setText(tx.getText().replaceAll(" ", ""));
+		Vendedor.evaluate(tx);
+	}
+	
+	
+	public void focus(){
+		frame.get_txt_idusuario().requestFocusInWindow();
+	}
+	
+	public void cargarCajas(String iduser){
+		Object[][] results=data.getCajas(iduser);
+		this.create_table(results);
+	}
+	public Object[][] processData(Object[][] results){
+		for (int i=0;i<results.length;i++){
+			results[i][2]=results[i][2].toString().compareTo("1")==0;
+			results[i][3]=results[i][3].toString().compareTo("1")==0;
+		}
+		return results;
+	}
+	
+	public void updateOrigen(boolean origen,int row){
+		String iduser=frame.get_txt_idusuario().getText();
+		String idcaja=frame.getJTable().getValueAt(row, 0).toString();
+		boolean destino=(Boolean)frame.getJTable().getValueAt(row, 3);
+		if (data.isCajaConfigured(iduser, idcaja)){
+			data.update(iduser, idcaja, origen, destino);
+		}else{
+			data.insert(iduser, idcaja, origen, destino);
+		}
+	}
+	
+	public void updateDestino(boolean destino,int row){
+		String iduser=frame.get_txt_idusuario().getText();
+		String idcaja=frame.getJTable().getValueAt(row, 0).toString();
+		boolean origen=(Boolean)frame.getJTable().getValueAt(row, 2);
+		if (data.isCajaConfigured(iduser, idcaja)){
+			data.update(iduser, idcaja, origen, destino);
+		}else{
+			data.insert(iduser, idcaja, origen, destino);
+		}
+	}
+	
+	private void create_table(Object[][] results) {
+		CustomTable table = new CustomTable();
+		Column col = new Column();
+		
+		
+		col = new Column();
+		col.setName("Caja");
+		col.setWidth(60);
+		col.setEditable(false);
+		table.addColumn(col);
+		
+		col = new Column();
+		col.setName("Descripcion");
+		col.setWidth(120);
+		col.setEditable(false);
+		table.addColumn(col);
+		
+		col = new Column();
+		col.setName("Origen");
+		col.setWidth(80);
+		col.setEditable(true);
+		CheckBoxCellEditor chkce = new CheckBoxCellEditor();
+		chkce.setItemListener(this._constructor.getItemListener());
+		chkce.setTipo(Boolean.class);
+		chkce.setName(_Interface._chk_origen);
+		col.setCellEditor(chkce.getCellCheck());
+		col.setClass(Boolean.class);
+		table.addColumn(col);
+		
+		col = new Column();
+		col.setName("Destino");
+		col.setClass(Boolean.class);
+		col.setWidth(80);
+		col.setEditable(true);
+		chkce = new CheckBoxCellEditor();
+		chkce.setItemListener(this._constructor.getItemListener());
+		chkce.setTipo(Boolean.class);
+		chkce.setName(_Interface._chk_destino);
+		col.setCellEditor(chkce.getCellCheck());
+		
+		table.addColumn(col);
+		
+		
+		
+		results=this.processData(results);
+		table.setData(results);
+		table.addKeyListener(this._constructor.getKeyListener());
+		Font fuente=new Font("Arial", Font.PLAIN, 8);
+		table.setHeaderFont(fuente);
+		table.build();
+		table.fillData();
+		
+		frame.setJTable(table.getTable());
+	}
+	
+	
+	private aplicacion.herramientas.java.evaluadores.Usuario usuario;
+	public void initialize_usuario(){
+		usuario=new aplicacion.herramientas.java.evaluadores.Usuario(){
+			public void cargar(String codigo){
+				Object[][] results=this.getInfo(codigo);
+				String descripcion=(String) results[0][1];
+				frame.get_txt_nombre().setText(descripcion);
+				cargar_parametros(codigo);
+			}
+		};
+		usuario.setConstructor(this.getConstructor());
+	}
+	public void Buscarusuario(JTextField tx){
+		usuario.Buscar(tx);
+	}
+	public void Buscarusuario(){
+		usuario.Buscar(frame.get_txt_idusuario());
+	}
+	public void buscarusuario(JTextField tx){
+		usuario.buscar(tx);
+	}
+	
+	public void evaluarusuario(JTextField tx){
+		String codigo=tx.getText();
+		if (usuario.existe(codigo)){
+			usuario.setNumeric_code(false);
+		}
+		usuario.evaluate(tx);	
+		
+		
+	}
+	}

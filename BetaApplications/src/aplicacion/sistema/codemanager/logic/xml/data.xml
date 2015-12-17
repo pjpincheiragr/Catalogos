@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<querys>
+<query id="insert" text="
+insert into S_Recursos (id,clasificacion,padre) values ('?','?','?')
+">
+</query>
+
+<query id="update" text="
+update S_Recursos set clasificacion='?' where id like '?'
+">
+</query>
+
+<query id="update_id" text="
+update S_Recursos set id='?' where id like '?'
+">
+</query>
+
+<query id="update_padre" text="
+update S_Recursos set padre='?' where padre like '?'
+">
+</query>
+
+<query id="id" text="
+select id from S_Recursos where clasificacion like '?' and padre like '?'
+">
+</query>
+
+<query id="exist" text="
+select * from S_Recursos where id like '?'
+">
+</query>
+
+<query id="delete" text="
+delete from  S_Recursos where  clasificacion like '?' and padre like '?'
+">
+</query>
+
+<query id="select" text="
+ select clasificacion,id 
+ from S_Recursos  
+ where padre like '?'  
+ order by clasificacion 
+">
+</query>
+
+<query id="clasificacion" text="
+ select clasificacion,id 
+ from S_Recursos  
+ where id like '?'
+ and padre like '?'  
+ order by clasificacion 
+">
+</query>
+
+<query id="tecnica" text="
+select dato,nota from S_Recursos_tecnica where id like '?' ">
+</query>
+
+<query id="delete_clasificacion" 
+text="delete from  S_Recursos_tecnica  where id like '?' ">
+</query>
+<query id="insert_clasificacion" 
+text="insert into  S_Recursos_tecnica (id,dato,nota) values('?','?','?') ">
+</query>
+<query id="select_all" text="
+ select id,clasificacion,padre 
+ from S_Recursos 
+ order by padre ,clasificacion
+  ">
+</query>
+</querys>

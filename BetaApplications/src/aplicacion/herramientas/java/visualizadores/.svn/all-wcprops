@@ -1,0 +1,185 @@
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/betapplications/!svn/ver/47/BetaApplications/src/aplicacion/herramientas/java/visualizadores
+END
+Remito.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Remito.java
+END
+Cobranza.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Cobranza.java
+END
+Mixto.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Mixto.java
+END
+Transporte.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Transporte.java
+END
+Aplicacion.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/betapplications/!svn/ver/47/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Aplicacion.java
+END
+Politica.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Politica.java
+END
+Codigo.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/betapplications/!svn/ver/25/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Codigo.java
+END
+Proveedor.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Proveedor.java
+END
+Query.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Query.java
+END
+Condicion.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Condicion.java
+END
+Vendedor.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Vendedor.java
+END
+Equivalencia.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Equivalencia.java
+END
+PedidoCliente.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/PedidoCliente.java
+END
+PDF.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/PDF.java
+END
+PedidoEspecial.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/PedidoEspecial.java
+END
+Host.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/betapplications/!svn/ver/47/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Host.java
+END
+Cuenta.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Cuenta.java
+END
+Control.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/betapplications/!svn/ver/5/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Control.java
+END
+Articulo.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Articulo.java
+END
+Cliente.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Cliente.java
+END
+Pago.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/betapplications/!svn/ver/8/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Pago.java
+END
+Deposito.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Deposito.java
+END
+Usuario.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/betapplications/!svn/ver/19/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Usuario.java
+END
+Linea.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Linea.java
+END
+TransferenciaStock.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/TransferenciaStock.java
+END
+FVN.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/FVN.java
+END
+Provincia.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Provincia.java
+END
+PedidoProveedor.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/PedidoProveedor.java
+END
+Generico.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/betapplications/!svn/ver/18/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Generico.java
+END
+Comprobantes.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/herramientas/java/visualizadores/Comprobantes.java
+END

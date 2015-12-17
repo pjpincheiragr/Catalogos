@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/betapplications/!svn/ver/38/BetaApplications/src/aplicacion/asterisk/manager/events
+END
+ActionListenerHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/betapplications/!svn/ver/38/BetaApplications/src/aplicacion/asterisk/manager/events/ActionListenerHandler.java
+END
+_ManagerEventListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/asterisk/manager/events/_ManagerEventListener.java
+END
+WindowAdapterHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/betapplications/!svn/ver/38/BetaApplications/src/aplicacion/asterisk/manager/events/WindowAdapterHandler.java
+END
+KeyListenerHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/asterisk/manager/events/KeyListenerHandler.java
+END
+MouseListenerHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/betapplications/!svn/ver/38/BetaApplications/src/aplicacion/asterisk/manager/events/MouseListenerHandler.java
+END

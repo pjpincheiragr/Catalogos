@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/betapplications/!svn/ver/53/BetaApplications/src/aplicacion/cliente/gestion/logic
+END
+ComboBoxEditor.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/betapplications/!svn/ver/10/BetaApplications/src/aplicacion/cliente/gestion/logic/ComboBoxEditor.java
+END
+DateRenderer.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/cliente/gestion/logic/DateRenderer.java
+END
+TableLineaColorCellRenderer.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/cliente/gestion/logic/TableLineaColorCellRenderer.java
+END
+_Data.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/betapplications/!svn/ver/53/BetaApplications/src/aplicacion/cliente/gestion/logic/_Data.java
+END
+_Logic.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/betapplications/!svn/ver/53/BetaApplications/src/aplicacion/cliente/gestion/logic/_Logic.java
+END
+TableItemColorCellRenderer.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/cliente/gestion/logic/TableItemColorCellRenderer.java
+END
+MoneyRenderer.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/cliente/gestion/logic/MoneyRenderer.java
+END

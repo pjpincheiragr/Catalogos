@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cajaab" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<parameter name="desde" class="java.lang.String">
+		<defaultValueExpression><![CDATA[01-01-2009]]></defaultValueExpression>
+	</parameter>
+	<parameter name="hasta" class="java.lang.String">
+		<defaultValueExpression><![CDATA[30-01-2009]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[(select v.fecha,v.cuenta,c.descripcion,v.tc,v.importe,'Alfa' as origen
+from v_mv_cpte v
+left outer join ma_cuentas c
+on v.cuenta=c.codigo
+where 
+(v.tc like 'tkfc'
+or v.tc like 'fc'
+or v.tc like 'tk')
+and v.fecha between '01-01-2009' and '31-01-2009'
+)
+union
+(
+select v.fecha_comprobante,v.cuenta,c.descripcion,v.tc,v.total_cpte,'Beta' as origen
+from b_fvn v
+left outer join ma_cuentas c
+on v.cuenta=c.codigo
+where 
+(v.tc like 'fvn'
+or v.tc like 'ncn'
+)
+and v.fecha_comprobante between '01-01-2009' and '31-01-2009'
+)]]>
+	</queryString>
+	<field name="fecha" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cuenta" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="importe" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="origen" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="suma_origen" class="java.lang.Double" resetType="Group" resetGroup="origen" calculation="Sum">
+		<variableExpression><![CDATA[$F{importe}]]></variableExpression>
+	</variable>
+	<variable name="suma_fecha" class="java.lang.Double" resetType="Group" resetGroup="fecha" calculation="Sum">
+		<variableExpression><![CDATA[$F{importe}]]></variableExpression>
+	</variable>
+	<variable name="suma_alfa" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{origen}.equals("Alfa") ? $F{importe}:0.0]]></variableExpression>
+	</variable>
+	<variable name="suma_beta" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{origen}.equals("Beta") ? $F{importe}:0.0]]></variableExpression>
+	</variable>
+	<variable name="suma_total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{importe}]]></variableExpression>
+	</variable>
+	<group name="fecha">
+		<groupExpression><![CDATA[$F{fecha}]]></groupExpression>
+		<groupHeader>
+			<band height="24">
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#CCCCFF"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{fecha}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="23">
+				<textField pattern="¤ #,##0.00">
+					<reportElement mode="Opaque" x="455" y="0" width="100" height="13" backcolor="#6666FF"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{suma_fecha}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="origen">
+		<groupExpression><![CDATA[$F{origen}]]></groupExpression>
+		<groupHeader>
+			<band height="23">
+				<textField>
+					<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#CCCCCC"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{origen}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="22">
+				<textField pattern="¤ #,##0.00">
+					<reportElement mode="Opaque" x="455" y="0" width="100" height="16" backcolor="#999999"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{suma_origen}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="59" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="308" height="35"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Reporte Simulacion Ventas]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="36" y="35" width="63" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{desde}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="35" width="100" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{hasta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="35" width="36" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Periodo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="99" y="35" width="6" height="20"/>
+				<textElement/>
+				<text><![CDATA[/]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="52" height="16"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="52" y="0" width="100" height="16"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IDCOMPROBANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="155" y="0" width="100" height="16"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DETALLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="0" width="100" height="16"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IMPORTE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField>
+				<reportElement x="5" y="0" width="100" height="16"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="0" width="100" height="16"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="208" y="0" width="100" height="16"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="192">
+			<staticText>
+				<reportElement x="355" y="50" width="100" height="15"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Beta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="382" y="70" width="73" height="15"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Alfa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="90" width="100" height="15"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement mode="Opaque" x="455" y="65" width="100" height="20" backcolor="#99FF99"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{suma_alfa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement mode="Opaque" x="455" y="45" width="100" height="20" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{suma_beta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement mode="Opaque" x="455" y="85" width="100" height="20" backcolor="#FF3333"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{suma_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

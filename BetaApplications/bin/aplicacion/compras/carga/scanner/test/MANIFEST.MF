@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Class-Path: lib/jtds-1.2.jar lib/jsch-0.1.38.jar lib/JBarcodeBean.jar lib/codegenerator.jar lib/uk.co.mmscomputing.device.twain.jar lib/uk.co.mmscomputing.device.sane.jar
+Main-Class: aplicacion.compras.carga.scanner.test._Test

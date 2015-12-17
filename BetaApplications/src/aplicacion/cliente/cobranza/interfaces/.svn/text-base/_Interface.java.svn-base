@@ -1,0 +1,58 @@
+package aplicacion.cliente.cobranza.interfaces;
+
+public interface _Interface {
+
+	public String _txt_anticipo="_txt_";
+	public String _txt_clientedescripcion="_txt_";
+	public String _txt_fecha="_txt_fecha";
+	public String _txt_idcliente="_txt_idcliente";
+	public String _txt_idcobranza="_txt_idcobranza";
+	public String _txt_leyenda="_txt_leyenda";//para mostrar informacion de pago
+	public String _txt_total_cpte="_txt_total_cpte";//la suma de lo que esta pagando
+	public String _txt_total_creditos="_txt_total_creditos";//la suma de los creditos esta utilizando
+	public String _txt_total_pagos="_txt_total_pagos";//el total de medios de pago
+	
+	public String _txt_deuda_desde="_txt_deuda_desde";
+	public String _txt_deuda_hasta="_txt_deuda_hasta";
+	public String _txt_credito_desde="_txt_credito_desde";
+	public String _txt_credito_hasta="_txt_credito_hasta";
+	
+	public String _btn_anular="_btn_anular";
+	public String _btn_cancelar="_btn_cancelar";
+	public String _btn_nuevo="_btn_nuevo";
+	public String _btn_fecha="_btn_fecha";
+	public String _btn_grabar="_btn_grabar";
+	
+	public String _btn_credito_desde="_btn_credito_desde";
+	public String _btn_credito_hasta="_btn_credito_hasta";
+	public String _btn_deuda_desde="_btn_deuda_desde";
+	public String _btn_deuda_hasta="_btn_deuda_hasta";
+	public String _btn_buscar_cliente="_btn_buscar_cliente";
+	public String _btn_cargar_cliente="_btn_cargar_cliente";	
+		
+	public String _btn_salir="_btn_salir";
+	public String _btn_error="_btn_error";
+	public String _btn_buscar="_btn_buscar";
+	public String _btn_imprimir="_btn_imprimir";
+	public String _btn_imprimir_cptes="_btn_imprimir_cptes";
+	public String _chk_seleccionar_cpte="_chk_seleccionar_cpte";
+	public String _chk_seleccionar_creditos="_chk_seleccionar_creditos";
+	public String _table_cpte="_table_cpte";//comprobantes que adeuda
+	public String _table_medios="_table_medios";//medios de pago
+	public String _table_opg="_table_opg"; //orden de pagos notas de creditos disponibles
+	
+	public String _table_medios_medio="_table_medios_medio";
+	public String _table_medios_importe="_table_medios_importe";
+	public String _table_medios_banco="_table_medios_banco";
+	public String _table_medios_serie="_table_medios_serie";
+	public String _table_medios_numero="_table_medios_numero";
+	public String _table_medios_vencimiento="_table_medios_vencimiento";
+	
+	public String _table_cpte_chk="_table_cpte_chk";
+	public String _table_opg_chk="_table_opg_chk";
+	
+	public String _extension_medios_de_pago="_Medios_de_Pago";
+	public String _extension_asiento="_Asiento";
+	public String _data_detalle_fvn="detalle_fvn";
+	public String _lst_modo="_lst_modo";
+}

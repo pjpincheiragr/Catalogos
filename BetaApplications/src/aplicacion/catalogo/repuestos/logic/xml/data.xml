@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<querys>
+<query id="insert" text="
+insert into b_clasificacion (id,clasificacion,padre) values ('?','?','?')
+">
+</query>
+
+<query id="update" text="
+update b_clasificacion set clasificacion='?' where id like '?'
+">
+</query>
+
+<query id="update_id" text="
+update b_clasificacion set id='?' where id like '?'
+">
+</query>
+
+<query id="update_padre" text="
+update b_clasificacion set padre='?' where padre like '?'
+">
+</query>
+
+<query id="id" text="
+select id from b_clasificacion where clasificacion like '?' and padre like '?'
+">
+</query>
+
+<query id="exist" text="
+select * from b_clasificacion where id like '?'
+">
+</query>
+
+<query id="delete" text="
+delete from  b_clasificacion where  clasificacion like '?' and padre like '?'
+">
+</query>
+
+<query id="select" text="
+ select clasificacion,id 
+ from b_clasificacion  
+ where padre like '?'  
+ order by clasificacion 
+">
+</query>
+
+<query id="clasificacion" text="
+ select clasificacion,id from b_clasificacion where id like '?' and padre like '?' order by clasificacion 
+">
+</query>
+
+<query id="tecnica" text="
+select dato,nota from b_clasificacion_tecnica where id like '?' order by dato">
+</query>
+
+<query id="delete_clasificacion" 
+text="delete from  b_clasificacion_tecnica  where id like '?' ">
+</query>
+<query id="insert_clasificacion" 
+text="insert into  b_clasificacion_tecnica (id,dato,nota) values('?','?','?') ">
+</query>
+<query id="select_all" text="
+ select id,clasificacion,padre 
+ from b_clasificacion 
+ order by padre ,clasificacion
+  ">
+</query>
+</querys>

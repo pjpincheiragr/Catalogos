@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/betapplications/!svn/ver/53/BetaApplications/src/aplicacion/cliente/gestion/events
+END
+ActionListenerHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/cliente/gestion/events/ActionListenerHandler.java
+END
+ItemListenerHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/betapplications/!svn/ver/10/BetaApplications/src/aplicacion/cliente/gestion/events/ItemListenerHandler.java
+END
+WindowAdapterHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/cliente/gestion/events/WindowAdapterHandler.java
+END
+KeyListenerHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/betapplications/!svn/ver/53/BetaApplications/src/aplicacion/cliente/gestion/events/KeyListenerHandler.java
+END
+MouseListenerHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/cliente/gestion/events/MouseListenerHandler.java
+END

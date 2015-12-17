@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+<query id="saldos" text="select CONVERT(VARCHAR(10), b.fecha  , 105),b.tc,b.idcomprobante,
+(case when b.debe_haber like 'd' then b.importe else 0 end) as debe,
+(case when b.debe_haber like 'h' then b.importe else 0 end) as haber 
+from b_mv_asientos b 
+where  b.cuenta like '?' 
+and b.anulado=0 
+order by b.fecha ">
+</query>
+<query id="proveedor" text="
+ select M.codigo,M.descripcion,
+isnull(a.telefono,''),
+isnull(a.fax,''),
+isnull(a.mail,''),
+isnull(a.contacto,''),
+isnull(a.localidad,''),
+isnull(a.observaciones,''),
+a.iva, 
+a.numero_documento, 
+a.idcond_cpra_vta, 
+t.descripcion, 
+isnull(a.calle,''),isnull(ltrim(a.numero),''),isnull(a.piso,''),ltrim(a.cpostal), 
+a.provincia,st.descripcion,tip.descripcion,a.documento_tipo,isnull(td.descripcion,''),
+a.requiere_iibb,a.requiere_perc_iva,a.requiere_perc_gan,requiere_neto_ngrav,requiere_iva10,
+requiere_iva27,imprime_etiq,actualiza_precios,a.requiere_iva21,a.permite_articulos,
+a.requiere_rg3337,a.requiere_remitos,a.requiere_impuestos_internos,
+a.alicuota_impuestos_internos,
+a.alicuota_ingresos_brutos,
+a.alicuota_percepcion_iva,
+isnull(a.tc,0),
+isnull(a.descuento,0),
+isnull(a.idtransporte,''),
+isnull(tt.nombre,'')
+FROM MA_CUENTAS M LEFT OUTER JOIN 
+MA_CUENTASADIC  a  
+ON M.CODIGO = a.CODIGO left outer join v_ta_cpra_vta t 
+on a.idcond_cpra_vta = t.idcond_cpra_vta 
+left outer join ta_condiva tip 
+on a.iva=tip.codigo 
+left outer join ta_estados st 
+on a.provincia=st.codigo 
+left outer join ta_tipodocumento td on a.documento_tipo=td.codigo
+left outer join transportes tt on a.idtransporte=tt.idtransporte 
+where M.codigo like '?'" >
+</query>
+<query id="update" text="update ma_cuentasadic set 
+requiere_iibb=?,
+requiere_perc_iva=?,
+requiere_perc_gan=?,
+requiere_neto_ngrav=?,
+actualiza_precios=?,
+imprime_etiq=?,
+requiere_iva10=?,
+requiere_iva27=?,
+requiere_iva21=?,
+permite_articulos=?,
+requiere_rg3337=?,
+requiere_remitos=?,
+requiere_impuestos_internos=?,
+alicuota_impuestos_internos=?,
+alicuota_ingresos_brutos=?,
+alicuota_percepcion_iva=?,
+tc='?',
+descuento=?,
+idtransporte='?' 
+where codigo like '?'">
+</query>
+
+<query id="insert_imputacion" text="insert into ma_cuentas_imputacion
+(codigo,imputacion,secuencia)
+values ('?','?',?)">
+</query>
+
+<query id="delete_imputacion" text="delete from ma_cuentas_imputacion
+where codigo = ?">
+</query>
+
+<query id="imputaciones" text="select 
+i.imputacion,c.descripcion 
+from ma_cuentas_imputacion i left outer join ma_cuentas c
+on i.imputacion=c.codigo
+where i.codigo = ? 
+order by i.secuencia">
+</query>
+
+<query id="account_info" text="select M.codigo,M.descripcion,
+		isnull(a.telefono,''),
+		isnull(a.fax,''),
+		isnull(a.mail,''),
+		isnull(a.contacto,''),
+		isnull(a.localidad,''),
+		isnull(a.observaciones,''),
+		a.iva, 
+		a.numero_documento, 
+		a.idcond_cpra_vta, 
+		t.descripcion, 
+		isnull(a.calle,''),isnull(ltrim(a.numero),''),isnull(a.piso,''),ltrim(a.cpostal), 
+		a.provincia,st.descripcion,tip.descripcion,isnull(a.idtransporte,''),isnull(tt.nombre,'') 
+		FROM MA_CUENTAS M LEFT OUTER JOIN 
+		MA_CUENTASADIC  a  
+		ON M.CODIGO = a.CODIGO left outer join v_ta_cpra_vta t 
+		 on a.idcond_cpra_vta = t.idcond_cpra_vta 
+		 left outer join ta_tipodocumento tip 
+		 on a.iva=tip.codigo 
+		 left outer join ta_estados st 
+		 on a.provincia=st.codigo
+		 left outer join transportes tt on a.idtransporte=tt.idtransporte 
+		 where M.codigo like '?'"></query>
+<query id="" text="">
+</query>
+<query id="" text="">
+</query>
+<query id="" text="">
+</query>
+</queries>

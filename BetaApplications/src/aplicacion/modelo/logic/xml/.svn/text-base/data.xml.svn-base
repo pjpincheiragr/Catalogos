@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<querys>
+<insert id="log" text="
+insert into LOGS ( 
+		fecha,
+		pc,
+		ip,
+		message,
+		localizedmessage,
+		_exception
+		) values (getdate(),
+		'?',
+		'?',
+		'?',
+		'?',
+		'?')
+		
+">
+</insert>
+</querys>

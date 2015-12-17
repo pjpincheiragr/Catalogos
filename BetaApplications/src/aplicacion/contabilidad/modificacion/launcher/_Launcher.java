@@ -1,0 +1,11 @@
+package aplicacion.contabilidad.modificacion.launcher;
+
+import aplicacion.contabilidad.modificacion.constructor._Constructor;
+import aplicacion.herramientas.java.launcher.logic.*;
+public class _Launcher extends Task_Model{
+	
+	public void initialize_constructor(){
+		C=new _Constructor();
+	}
+	
+}

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/catalogo/catalogo/events
+END
+ActionListenerHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/catalogo/catalogo/events/ActionListenerHandler.java
+END
+KeyListenerHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/catalogo/catalogo/events/KeyListenerHandler.java
+END
+ItemListenerHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/betapplications/!svn/ver/3/BetaApplications/src/aplicacion/catalogo/catalogo/events/ItemListenerHandler.java
+END

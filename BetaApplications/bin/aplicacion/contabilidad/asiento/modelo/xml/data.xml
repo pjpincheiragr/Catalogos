@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+	<query id="existe" text="select * from tabla_de_asientos where periodo = ? and mes =? and numero = ?"></query>
+	<insert id="insertar" text="insert into asientos (periodo,mes,numero,secuencia,detalle,cuenta,debe,haber,caja) values (?,?,?,?,?,?,?,?)"></insert>
+	<delete id="eliminar" text="delete from tabla_asientos where periodo =? and mes= ? and numero =?"></delete>
+	<update id="actualizar" text=""></update>
+	<query id="nuevo" text="select periodo,mes,numero from tabla_asientos segun fecha=?"></query></queries>
+	

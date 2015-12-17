@@ -1,0 +1,256 @@
+<Aplicacion clase="aplicacion.actualizacion.global.logic._Logic" >
+<JRootPane clase="javax.swing.JRootPane" nombre="" >
+<JPanel clase="javax.swing.JPanel" nombre="null.glassPane" >
+</JPanel >
+<JLayeredPane clase="javax.swing.JLayeredPane" nombre="null.layeredPane" >
+<JPanel clase="javax.swing.JPanel" nombre="" >
+<JToolBar clase="javax.swing.JToolBar" nombre="" >
+<JButton clase="javax.swing.JButton" nombre="" ActionCommand="_btn_cancelar" enabled="false" >
+</JButton >
+<JButton clase="javax.swing.JButton" nombre="" ActionCommand="_btn_nuevo" enabled="false" >
+</JButton >
+<JButton clase="javax.swing.JButton" nombre="" ActionCommand="_btn_salir" enabled="false" >
+</JButton >
+<JButton clase="javax.swing.JButton" nombre="" ActionCommand="_btn_play" enabled="false" >
+</JButton >
+<Component clase="javax.swing.JToolBar.Separator" nombre="" >
+</Component >
+</JToolBar >
+<Component clase="javax.swing.JProgressBar" nombre="" >
+</Component >
+<JButton clase="javax.swing.JButton" nombre="" ActionCommand="_btn_cancelar_tarea" enabled="true" >
+</JButton >
+<JTextField clase="javax.swing.JTextField" nombre="_txt_idcomprobante" text="00000031" >
+</JTextField >
+<Component clase="javax.swing.JLabel" nombre="" >
+</Component >
+<JTabbedPane clase="javax.swing.JTabbedPane" nombre="" >
+<JPanel clase="javax.swing.JPanel" nombre="" >
+<JPanel clase="javax.swing.JPanel" nombre="" >
+<JCheckBox clase="javax.swing.JCheckBox" nombre="_chk_seleccionar" seleccionado="false" >
+</JCheckBox >
+<JComboBox clase="javax.swing.JComboBox" nombre="_lst_modo" seleccionado="ODBC" >
+</JComboBox >
+<Component clase="javax.swing.JLabel" nombre="" >
+</Component >
+</JPanel >
+<JScrollPane clase="javax.swing.JScrollPane" nombre="" >
+<JTable clase="" nombre="_table_catalogos" >
+<row >
+<celda valor="true" >
+</celda >
+<celda valor="211010001" >
+</celda >
+<celda valor="AUTONAUTICA SUR S.R.L." >
+</celda >
+<celda valor="odbc" >
+</celda >
+<celda valor="autonautica" >
+</celda >
+<celda valor="" >
+</celda >
+<celda valor="0001" >
+</celda >
+</row >
+<row >
+<celda valor="true" >
+</celda >
+<celda valor="211010005" >
+</celda >
+<celda valor="BALSAMO S.A." >
+</celda >
+<celda valor="odbc" >
+</celda >
+<celda valor="Balsamo" >
+</celda >
+<celda valor="AEQ" >
+</celda >
+<celda valor="0004" >
+</celda >
+</row >
+<row >
+<celda valor="true" >
+</celda >
+<celda valor="211010009" >
+</celda >
+<celda valor="CARBURACION ANTONIO" >
+</celda >
+<celda valor="odbc" >
+</celda >
+<celda valor="CARBURACION" >
+</celda >
+<celda valor="" >
+</celda >
+<celda valor="0009" >
+</celda >
+</row >
+<row >
+<celda valor="true" >
+</celda >
+<celda valor="211010016" >
+</celda >
+<celda valor="CARLOS VAZQUEZ S.A." >
+</celda >
+<celda valor="odbc" >
+</celda >
+<celda valor="carlos_v" >
+</celda >
+<celda valor="" >
+</celda >
+<celda valor="0016" >
+</celda >
+</row >
+<row >
+<celda valor="false" >
+</celda >
+<celda valor="211010025" >
+</celda >
+<celda valor="DISTRIBUIDORA ELECTRO REPUESTOS DER" >
+</celda >
+<celda valor="odbc" >
+</celda >
+<celda valor="dercli2" >
+</celda >
+<celda valor="" >
+</celda >
+<celda valor="0025" >
+</celda >
+</row >
+<row >
+<celda valor="true" >
+</celda >
+<celda valor="211010029" >
+</celda >
+<celda valor="MULTIORIGINAL PART S.A (etman)" >
+</celda >
+<celda valor="odbc" >
+</celda >
+<celda valor="Etman-test" >
+</celda >
+<celda valor="" >
+</celda >
+<celda valor="0029" >
+</celda >
+</row >
+<row >
+<celda valor="false" >
+</celda >
+<celda valor="211010039" >
+</celda >
+<celda valor="GOYANARTE EDUARDO S.A." >
+</celda >
+<celda valor="odbc" >
+</celda >
+<celda valor="EGSA" >
+</celda >
+<celda valor="" >
+</celda >
+<celda valor="0039" >
+</celda >
+</row >
+<row >
+<celda valor="true" >
+</celda >
+<celda valor="211010044" >
+</celda >
+<celda valor="PAPIERTTEI SA" >
+</celda >
+<celda valor="odbc" >
+</celda >
+<celda valor="PAPPIERTTEI" >
+</celda >
+<celda valor="0044" >
+</celda >
+<celda valor="0044" >
+</celda >
+</row >
+<row >
+<celda valor="true" >
+</celda >
+<celda valor="211010055" >
+</celda >
+<celda valor="RODAMET SACI" >
+</celda >
+<celda valor="odbc" >
+</celda >
+<celda valor="rodamet" >
+</celda >
+<celda valor="" >
+</celda >
+<celda valor="0055" >
+</celda >
+</row >
+<row >
+<celda valor="false" >
+</celda >
+<celda valor="211010075" >
+</celda >
+<celda valor="VENTOR SAC e I" >
+</celda >
+<celda valor="odbc" >
+</celda >
+<celda valor="VENTOR" >
+</celda >
+<celda valor="VENTOR" >
+</celda >
+<celda valor="0075" >
+</celda >
+</row >
+<row >
+<celda valor="true" >
+</celda >
+<celda valor="211010106" >
+</celda >
+<celda valor="ROSSI. MOSCATELLI  CIA SACIF" >
+</celda >
+<celda valor="odbc" >
+</celda >
+<celda valor="DOBLET" >
+</celda >
+<celda valor="" >
+</celda >
+<celda valor="0106" >
+</celda >
+</row >
+<row >
+<celda valor="true" >
+</celda >
+<celda valor="211019565" >
+</celda >
+<celda valor="ARCORE" >
+</celda >
+<celda valor="odbc" >
+</celda >
+<celda valor="Arcore" >
+</celda >
+<celda valor="" >
+</celda >
+<celda valor="9565" >
+</celda >
+</row >
+</JTable >
+</JScrollPane >
+</JPanel >
+</JTabbedPane >
+<Component clase="javax.swing.JProgressBar" nombre="" >
+</Component >
+<JButton clase="javax.swing.JButton" nombre="" ActionCommand="_btn_cancelar_global" enabled="true" >
+</JButton >
+<JCheckBox clase="javax.swing.JCheckBox" nombre="" seleccionado="true" >
+</JCheckBox >
+<Component clase="javax.swing.JLabel" nombre="" >
+</Component >
+<JCheckBox clase="javax.swing.JCheckBox" nombre="" seleccionado="true" >
+</JCheckBox >
+<Component clase="javax.swing.JLabel" nombre="" >
+</Component >
+<Component clase="javax.swing.JLabel" nombre="" >
+</Component >
+<JTextField clase="javax.swing.JTextField" nombre="_txt_path" text="C:\Documents and Settings\Agustin\Escritorio\ACTUALIZACIONES\" >
+</JTextField >
+<JButton clase="javax.swing.JButton" nombre="" ActionCommand="_btn_modificarCamino" enabled="false" >
+</JButton >
+</JPanel >
+</JLayeredPane >
+</JRootPane >
+</Aplicacion >

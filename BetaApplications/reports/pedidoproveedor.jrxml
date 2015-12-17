@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pdc_preparar" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<style name="Title" isDefault="false" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" isDefault="false" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" isDefault="false" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" isDefault="false" fontName="Arial" fontSize="12"/>
+	<parameter name="idpedido" class="java.lang.String"/>
+	<parameter name="email" class="java.lang.String"/>
+	<parameter name="telefono" class="java.lang.String"/>
+	<parameter name="empresa" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     b_PDP."idpedido" AS b_PDP_idpedido,
+     b_PDP."fecha" AS b_PDP_fecha,
+     b_PDP."cuenta" AS b_PDP_cuenta,
+     cuentas.descripcion AS descripcion,
+     b_PDP_items."idarticulo" AS b_PDP_items_idarticulo,
+     b_PDP_items."descripcion" AS b_PDP_items_descripcion,
+     b_PDP_items."cantidad" AS b_PDP_items_cantidad,
+     b_PDP_items."linea" AS b_PDP_items_linea
+FROM
+     "dbo"."b_PDP" b_PDP 
+     left outer join "dbo"."ma_cuentas" cuentas
+     on b_PDP.cuenta=cuentas.codigo
+     left outer join b_pdp_lineas lineas
+     on b_pdp.idpedido=lineas.idpedido 
+     left outer join "dbo"."b_PDP_items" b_PDP_items 
+     on b_PDP.idpedido=b_PDP_items.idpedido
+     and lineas.linea=b_PDP_items.linea
+where   b_PDP."idpedido" like $P{idpedido}
+and b_PDP_items."cantidad" > 0
+and b_PDP_items."usar" =1
+and lineas.seleccionada=1
+order by b_PDP_items."linea",b_PDP_items."idarticulo"]]>
+	</queryString>
+	<field name="b_PDP_idpedido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PDP_fecha" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PDP_cuenta" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PDP_items_idarticulo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PDP_items_descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PDP_items_cantidad" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="b_PDP_items_linea" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="variable1" class="java.lang.Double" resetType="Group" resetGroup="group_linea" calculation="Sum">
+		<variableExpression><![CDATA[$F{b_PDP_items_cantidad}]]></variableExpression>
+	</variable>
+	<group name="group_linea">
+		<groupExpression><![CDATA[$F{b_PDP_items_linea}]]></groupExpression>
+		<groupHeader>
+			<band height="17">
+				<textField>
+					<reportElement x="0" y="0" width="152" height="14"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{b_PDP_items_linea}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="19">
+				<textField pattern="#,##0.00">
+					<reportElement x="492" y="2" width="63" height="14"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{variable1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="407" y="2" width="85" height="14"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[total items linea:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="305" y="2" width="100" height="14"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{b_PDP_items_linea}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="108" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="139" height="21"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Pedido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="82" width="58" height="13"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[proveedor:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="62" y="82" width="64" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{b_PDP_cuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="126" y="82" width="189" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="367" y="21" width="188" height="13"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{b_PDP_fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="34" width="210" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="47" width="210" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{telefono}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="164" y="21" width="46" height="13"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[numero:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="210" y="21" width="100" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{b_PDP_idpedido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="60" width="210" height="13"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{email}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="79" width="553" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="98" width="553" height="1"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="28" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="25" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="126" y="10" width="226" height="15" forecolor="#000000"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="353" y="10" width="64" height="15" forecolor="#000000"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="10" width="126" height="15" forecolor="#000000"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="10" width="62" height="15" forecolor="#000000"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[linea]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="13" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="420" y="1" width="133" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{b_PDP_items_linea}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="352" y="1" width="64" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{b_PDP_items_cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="139" y="1" width="213" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{b_PDP_items_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="1" width="139" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{b_PDP_items_idarticulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="67" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="152" y="17" width="292" height="44"/>
+				<textElement textAlignment="Justified">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Solicitamos se envie solo la mercaderia detallada en este pedido con las cantidades correspondientes. Ante Cualquier tipo de cambio de productos por reemplazo por favor comuniquese con nosotros. Los productos no solicitados en este pedido seran devueltos. Muchas gracias]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="4" width="113" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estimado proveedor:]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="0" y="11" width="139" height="50"/>
+				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
+					<jr:codeExpression><![CDATA[$F{b_PDP_idpedido}]]></jr:codeExpression>
+				</jr:Code39>
+			</componentElement>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Pag "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

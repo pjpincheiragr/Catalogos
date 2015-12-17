@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<project name="BetaApplications" default="run" basedir=".">
+
+	<description>
+    Ejemplo de fichero build.xml
+  </description>
+
+
+
+
+	<!-- Propiedades -->
+	<property name="src.home" value="src" />
+	<property name="build.home" value="bin" />
+	<property name="dist.home" value="c:\beta\lib" />
+	<property name="lib.dir" value="c:\beta\lib" />
+
+
+	<!-- Objetivos -->
+	<target name="compile">
+		<mkdir dir="${build.home}" />
+		<javac srcdir="${src.home}" destdir="${build.home}">
+		</javac>
+
+		<jar destfile="${dist.home}/beta.core.0.jar" compress="true" basedir="${build.home}" />
+	</target>
+
+
+	<target name="run" depends="compile">
+
+
+		<java fork="true" classname="aplicacion.sistema.menu.test._Test">
+			<classpath>
+				<path id="classpath">
+					<fileset dir="${lib.dir}" includes="**/*.jar" />
+				</path>
+				
+
+			</classpath>
+		</java>
+	</target>
+
+
+	<target name="clean">
+		<delete dir="${build.home}" />
+	</target>
+
+</project>

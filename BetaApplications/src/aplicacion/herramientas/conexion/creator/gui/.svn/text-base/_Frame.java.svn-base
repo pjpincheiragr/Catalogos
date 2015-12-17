@@ -1,0 +1,490 @@
+package aplicacion.herramientas.conexion.creator.gui;
+
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
+import javax.swing.JFrame;
+import java.awt.Dimension;
+import javax.swing.JLabel;
+import java.awt.Rectangle;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import java.awt.GridBagLayout;
+import java.awt.Color;
+import javax.swing.JToolBar;
+import java.awt.Point;
+import java.awt.Font;
+
+public class _Frame extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel jContentPane = null;
+	private JLabel jLabel = null;
+	private JLabel jLabel1 = null;
+	private JComboBox _lst_conexion = null;
+	private JTextField _txt_idconexion = null;
+	private JLabel jLabel2 = null;
+	private JLabel jLabel3 = null;
+	private JLabel jLabel4 = null;
+	private JLabel jLabel5 = null;
+	private JTextField _txt_host = null;
+	private JTextField _txt_port = null;
+	private JTextField _txt_usuario = null;
+	private JPasswordField _txt_password = null;
+	private JButton _btn_guardar = null;
+	private JButton _btn_buscar = null;
+	private JPanel jPanel = null;
+	private JToolBar jJToolBarBar = null;
+	private JButton _btn_nuevo = null;
+	private JButton _btn_cancelar = null;
+	private JButton _btn_salir = null;
+	private JLabel jLabel6 = null;
+	private JLabel jLabel61 = null;
+	private JLabel jLabel7 = null;
+	private JTextField _txt_ssh_host = null;
+	private JLabel jLabel8 = null;
+	private JTextField _txt_ssh_port = null;
+	private JTextField _txt_database = null;
+	private JLabel jLabel9 = null;
+	private JButton _btn_login = null;
+	private JLabel jLabel10 = null;
+	private JTextField _txt_ssh_user = null;
+	private JLabel jLabel11 = null;
+	private JPasswordField _txt_ssh_password = null;
+	private JButton _btn_eliminar = null;
+	private JLabel jLabel12 = null;
+	private JComboBox _lst_mysql = null;
+	/**
+	 * This is the default constructor
+	 */
+	public _Frame() {
+		super();
+		initialize();
+	}
+
+	/**
+	 * This method initializes this
+	 * 
+	 * @return void
+	 */
+	private void initialize() {
+		this.setSize(453, 422);
+		this.setContentPane(getJContentPane());
+		this.setTitle("Conexion");
+	}
+
+	/**
+	 * This method initializes jContentPane
+	 * 
+	 * @return javax.swing.JPanel
+	 */
+	private JPanel getJContentPane() {
+		if (jContentPane == null) {
+			jLabel12 = new JLabel();
+			jLabel12.setBounds(new Rectangle(19, 209, 106, 16));
+			jLabel12.setFont(new Font("Dialog", Font.PLAIN, 10));
+			jLabel12.setHorizontalAlignment(SwingConstants.RIGHT);
+			jLabel12.setText("mysql");
+			jLabel9 = new JLabel();
+			jLabel9.setBounds(new Rectangle(16, 138, 108, 16));
+			jLabel9.setHorizontalAlignment(SwingConstants.RIGHT);
+			jLabel9.setFont(new Font("Dialog", Font.PLAIN, 10));
+			jLabel9.setText("database");
+			jLabel61 = new JLabel();
+			jLabel61.setBounds(new Rectangle(329, 29, 110, 29));
+			jLabel61.setForeground(new Color(51, 102, 255));
+			jLabel61.setHorizontalAlignment(SwingConstants.RIGHT);
+			jLabel61.setText("Local");
+			jLabel61.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 14));
+			jLabel5 = new JLabel();
+			jLabel5.setBounds(new Rectangle(19, 186, 106, 15));
+			jLabel5.setHorizontalAlignment(SwingConstants.RIGHT);
+			jLabel5.setFont(new Font("Dialog", Font.PLAIN, 10));
+			jLabel5.setText("password");
+			jLabel4 = new JLabel();
+			jLabel4.setBounds(new Rectangle(20, 164, 104, 15));
+			jLabel4.setHorizontalAlignment(SwingConstants.RIGHT);
+			jLabel4.setFont(new Font("Dialog", Font.PLAIN, 10));
+			jLabel4.setText("usuario");
+			jLabel3 = new JLabel();
+			jLabel3.setBounds(new Rectangle(16, 114, 107, 15));
+			jLabel3.setHorizontalAlignment(SwingConstants.RIGHT);
+			jLabel3.setFont(new Font("Dialog", Font.PLAIN, 10));
+			jLabel3.setText("port");
+			jLabel2 = new JLabel();
+			jLabel2.setBounds(new Rectangle(18, 91, 104, 16));
+			jLabel2.setHorizontalAlignment(SwingConstants.RIGHT);
+			jLabel2.setFont(new Font("Dialog", Font.PLAIN, 10));
+			jLabel2.setText("host");
+			jLabel1 = new JLabel();
+			jLabel1.setBounds(new Rectangle(20, 69, 103, 17));
+			jLabel1.setHorizontalAlignment(SwingConstants.RIGHT);
+			jLabel1.setFont(new Font("Dialog", Font.PLAIN, 10));
+			jLabel1.setText("tipo");
+			jLabel = new JLabel();
+			jLabel.setBounds(new Rectangle(18, 48, 104, 14));
+			jLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+			jLabel.setFont(new Font("Dialog", Font.PLAIN, 10));
+			jLabel.setText("idConexion");
+			jContentPane = new JPanel();
+			jContentPane.setLayout(null);
+			jContentPane.add(jLabel, null);
+			jContentPane.add(jLabel1, null);
+			jContentPane.add(get_lst_conexion(), null);
+			jContentPane.add(get_txt_idconexion(), null);
+			jContentPane.add(jLabel2, null);
+			jContentPane.add(jLabel3, null);
+			jContentPane.add(jLabel4, null);
+			jContentPane.add(jLabel5, null);
+			jContentPane.add(get_txt_host(), null);
+			jContentPane.add(get_txt_port(), null);
+			jContentPane.add(get_txt_usuario(), null);
+			jContentPane.add(get_txt_password(), null);
+			jContentPane.add(get_btn_buscar(), null);
+			jContentPane.add(getJPanel(), null);
+			jContentPane.add(getJJToolBarBar(), null);
+			jContentPane.add(jLabel61, null);
+			jContentPane.add(get_txt_database(), null);
+			jContentPane.add(jLabel9, null);
+			jContentPane.add(get_btn_login(), null);
+			jContentPane.add(jLabel12, null);
+			jContentPane.add(get_lst_mysql(), null);
+		}
+		return jContentPane;
+	}
+
+	/**
+	 * This method initializes _lst_conexion	
+	 * 	
+	 * @return javax.swing.JComboBox	
+	 */
+	public JComboBox get_lst_conexion() {
+		if (_lst_conexion == null) {
+			_lst_conexion = new JComboBox();
+			_lst_conexion.setBounds(new Rectangle(134, 66, 130, 18));
+			_lst_conexion.setFont(new Font("Dialog", Font.PLAIN, 10));
+		}
+		return _lst_conexion;
+	}
+
+	/**
+	 * This method initializes _txt_idconexion	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	public JTextField get_txt_idconexion() {
+		if (_txt_idconexion == null) {
+			_txt_idconexion = new JTextField();
+			_txt_idconexion.setBounds(new Rectangle(134, 46, 130, 16));
+			_txt_idconexion.setFont(new Font("Dialog", Font.PLAIN, 10));
+		}
+		return _txt_idconexion;
+	}
+
+	/**
+	 * This method initializes _txt_host	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	public JTextField get_txt_host() {
+		if (_txt_host == null) {
+			_txt_host = new JTextField();
+			_txt_host.setBounds(new Rectangle(134, 91, 130, 16));
+			_txt_host.setFont(new Font("Dialog", Font.PLAIN, 10));
+		}
+		return _txt_host;
+	}
+
+	/**
+	 * This method initializes _txt_port	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	public JTextField get_txt_port() {
+		if (_txt_port == null) {
+			_txt_port = new JTextField();
+			_txt_port.setBounds(new Rectangle(134, 114, 130, 16));
+			_txt_port.setFont(new Font("Dialog", Font.PLAIN, 10));
+		}
+		return _txt_port;
+	}
+
+	/**
+	 * This method initializes _txt_usuario	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	public JTextField get_txt_usuario() {
+		if (_txt_usuario == null) {
+			_txt_usuario = new JTextField();
+			_txt_usuario.setBounds(new Rectangle(135, 162, 130, 16));
+			_txt_usuario.setFont(new Font("Dialog", Font.PLAIN, 10));
+		}
+		return _txt_usuario;
+	}
+
+	/**
+	 * This method initializes _txt_password	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	public JPasswordField get_txt_password() {
+		if (_txt_password == null) {
+			_txt_password = new JPasswordField();
+			_txt_password.setBounds(new Rectangle(135, 187, 130, 16));
+			_txt_password.setFont(new Font("Dialog", Font.PLAIN, 10));
+		}
+		return _txt_password;
+	}
+
+	/**
+	 * This method initializes _btn_guardar	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	public JButton get_btn_guardar() {
+		if (_btn_guardar == null) {
+			_btn_guardar = new JButton();
+			_btn_guardar.setIcon(new ImageIcon(getClass().getResource("/icons/gtk-save-as.png")));
+		}
+		return _btn_guardar;
+	}
+
+	/**
+	 * This method initializes _btn_buscar	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	public JButton get_btn_buscar() {
+		if (_btn_buscar == null) {
+			_btn_buscar = new JButton();
+			_btn_buscar.setBounds(new Rectangle(269, 45, 23, 20));
+			_btn_buscar.setIcon(new ImageIcon(getClass().getResource("/icons/kfind.png")));
+		}
+		return _btn_buscar;
+	}
+
+	/**
+	 * This method initializes jPanel	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getJPanel() {
+		if (jPanel == null) {
+			jLabel11 = new JLabel();
+			jLabel11.setBounds(new Rectangle(63, 104, 67, 18));
+			jLabel11.setFont(new Font("Dialog", Font.PLAIN, 10));
+			jLabel11.setText("password");
+			jLabel10 = new JLabel();
+			jLabel10.setBounds(new Rectangle(65, 82, 61, 17));
+			jLabel10.setFont(new Font("Dialog", Font.PLAIN, 10));
+			jLabel10.setText("usuario");
+			jLabel8 = new JLabel();
+			jLabel8.setBounds(new Rectangle(68, 52, 57, 17));
+			jLabel8.setHorizontalAlignment(SwingConstants.RIGHT);
+			jLabel8.setFont(new Font("Dialog", Font.PLAIN, 10));
+			jLabel8.setText("port");
+			jLabel7 = new JLabel();
+			jLabel7.setBounds(new Rectangle(53, 29, 72, 16));
+			jLabel7.setHorizontalAlignment(SwingConstants.RIGHT);
+			jLabel7.setFont(new Font("Dialog", Font.PLAIN, 10));
+			jLabel7.setText("SSH Server");
+			jLabel6 = new JLabel();
+			jLabel6.setBounds(new Rectangle(311, 2, 117, 24));
+			jLabel6.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 14));
+			jLabel6.setForeground(new Color(51, 102, 255));
+			jLabel6.setHorizontalAlignment(SwingConstants.RIGHT);
+			jLabel6.setText("Internet");
+			jPanel = new JPanel();
+			jPanel.setLayout(null);
+			jPanel.setBounds(new Rectangle(0, 252, 437, 136));
+			jPanel.setBackground(Color.lightGray);
+			jPanel.add(jLabel6, null);
+			jPanel.add(jLabel7, null);
+			jPanel.add(get_txt_ssh_host(), null);
+			jPanel.add(jLabel8, null);
+			jPanel.add(get_txt_ssh_port(), null);
+			jPanel.add(jLabel10, null);
+			jPanel.add(get_txt_ssh_user(), null);
+			jPanel.add(jLabel11, null);
+			jPanel.add(get_txt_ssh_password(), null);
+		}
+		return jPanel;
+	}
+
+	/**
+	 * This method initializes jJToolBarBar	
+	 * 	
+	 * @return javax.swing.JToolBar	
+	 */
+	private JToolBar getJJToolBarBar() {
+		if (jJToolBarBar == null) {
+			jJToolBarBar = new JToolBar();
+			jJToolBarBar.setFloatable(false);
+			jJToolBarBar.setBounds(new Rectangle(0, 2, 440, 23));
+			jJToolBarBar.add(get_btn_nuevo());
+			jJToolBarBar.add(get_btn_cancelar());
+			jJToolBarBar.add(get_btn_guardar());
+			jJToolBarBar.add(get_btn_eliminar());
+			jJToolBarBar.add(get_btn_salir());
+		}
+		return jJToolBarBar;
+	}
+
+	/**
+	 * This method initializes _btn_nuevo	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	public JButton get_btn_nuevo() {
+		if (_btn_nuevo == null) {
+			_btn_nuevo = new JButton();
+			_btn_nuevo.setIcon(new ImageIcon(getClass().getResource("/icons/filenew.png")));
+		}
+		return _btn_nuevo;
+	}
+
+	/**
+	 * This method initializes _btn_cancelar	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	public JButton get_btn_cancelar() {
+		if (_btn_cancelar == null) {
+			_btn_cancelar = new JButton();
+			_btn_cancelar.setIcon(new ImageIcon(getClass().getResource("/icons/gtk-stop.png")));
+		}
+		return _btn_cancelar;
+	}
+
+	/**
+	 * This method initializes _btn_salir	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	public JButton get_btn_salir() {
+		if (_btn_salir == null) {
+			_btn_salir = new JButton();
+			_btn_salir.setIcon(new ImageIcon(getClass().getResource("/icons/gnome-logout.png")));
+		}
+		return _btn_salir;
+	}
+
+	/**
+	 * This method initializes _txt_ssh_host	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	public JTextField get_txt_ssh_host() {
+		if (_txt_ssh_host == null) {
+			_txt_ssh_host = new JTextField();
+			_txt_ssh_host.setBounds(new Rectangle(134, 29, 240, 17));
+			_txt_ssh_host.setFont(new Font("Dialog", Font.PLAIN, 10));
+		}
+		return _txt_ssh_host;
+	}
+
+	/**
+	 * This method initializes _txt_ssh_port	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	public JTextField get_txt_ssh_port() {
+		if (_txt_ssh_port == null) {
+			_txt_ssh_port = new JTextField();
+			_txt_ssh_port.setBounds(new Rectangle(135, 51, 55, 18));
+			_txt_ssh_port.setFont(new Font("Dialog", Font.PLAIN, 10));
+		}
+		return _txt_ssh_port;
+	}
+
+	/**
+	 * This method initializes _txt_database	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	public JTextField get_txt_database() {
+		if (_txt_database == null) {
+			_txt_database = new JTextField();
+			_txt_database.setLocation(new Point(135, 137));
+			_txt_database.setFont(new Font("Dialog", Font.PLAIN, 10));
+			_txt_database.setSize(new Dimension(130, 16));
+		}
+		return _txt_database;
+	}
+
+	/**
+	 * This method initializes _btn_login	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	public JButton get_btn_login() {
+		if (_btn_login == null) {
+			_btn_login = new JButton();
+			_btn_login.setBounds(new Rectangle(298, 45, 23, 20));
+			_btn_login.setToolTipText("Probar");
+			_btn_login.setIcon(new ImageIcon(getClass().getResource("/icons/stock_media-play.png")));
+		}
+		return _btn_login;
+	}
+
+	/**
+	 * This method initializes _txt_ssh_user	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	public JTextField get_txt_ssh_user() {
+		if (_txt_ssh_user == null) {
+			_txt_ssh_user = new JTextField();
+			_txt_ssh_user.setBounds(new Rectangle(135, 80, 130, 16));
+			_txt_ssh_user.setFont(new Font("Dialog", Font.PLAIN, 10));
+		}
+		return _txt_ssh_user;
+	}
+
+	/**
+	 * This method initializes _txt_ssh_password	
+	 * 	
+	 * @return javax.swing.JPasswordField	
+	 */
+	public JPasswordField get_txt_ssh_password() {
+		if (_txt_ssh_password == null) {
+			_txt_ssh_password = new JPasswordField();
+			_txt_ssh_password.setBounds(new Rectangle(135, 106, 130, 16));
+			_txt_ssh_password.setFont(new Font("Dialog", Font.PLAIN, 10));
+		}
+		return _txt_ssh_password;
+	}
+
+	/**
+	 * This method initializes _btn_eliminar	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	public JButton get_btn_eliminar() {
+		if (_btn_eliminar == null) {
+			_btn_eliminar = new JButton();
+			_btn_eliminar.setIcon(new ImageIcon(getClass().getResource("/icons/edit-delete.png")));
+			_btn_eliminar.setToolTipText("Eliminar Conexion");
+		}
+		return _btn_eliminar;
+	}
+
+	/**
+	 * This method initializes _lst_mysql	
+	 * 	
+	 * @return javax.swing.JComboBox	
+	 */
+	public JComboBox get_lst_mysql() {
+		if (_lst_mysql == null) {
+			_lst_mysql = new JComboBox();
+			_lst_mysql.setBounds(new Rectangle(135, 209, 129, 16));
+			_lst_mysql.setFont(new Font("Dialog", Font.BOLD, 10));
+		}
+		return _lst_mysql;
+	}
+
+}  //  @jve:decl-index=0:visual-constraint="10,10"
